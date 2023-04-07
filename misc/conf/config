@@ -1,0 +1,4 @@
+[service]
+ServiceAddr = http://10.20.6.68
+HttpPort = :3000
+AppMode = debug
