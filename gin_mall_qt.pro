@@ -26,6 +26,8 @@ CONFIG += c++11
 
 INCLUDEPATH += $$PWD/ui/verification
 
+TRANSLATIONS = translations/i18n_zh_CN.ts translations/i18n_en_US.ts
+
 SOURCES += \
         main.cpp \
     ui/login/login.cpp \
@@ -57,3 +59,6 @@ TARGET = gin_mall_qt
 qnx: target.path = /home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/build/bin
 else: unix:!android: target.path = /home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/build/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    lan.qrc

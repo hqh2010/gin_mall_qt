@@ -7,6 +7,12 @@ const QString SERVER_CFG_PATH = "/home/uthuqinghong/Desktop/gin-mall-qt/gin_mall
 
 namespace utils
 {
+    bool fileExists(const QString &path)
+    {
+        QFileInfo fs(path);
+        return fs.exists() && fs.isFile() ? true : false;
+    }
+
     int getLocalConfig(const QString &key, QString &value)
     {
         if (!fileExists(SERVER_CFG_PATH))

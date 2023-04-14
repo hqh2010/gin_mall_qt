@@ -13,26 +13,40 @@ Register::Register(QWidget *parent) : QMainWindow(parent),
 
 void Register::init_ui()
 {
-    // ui->login_name->setText(tr("user name"));
-    ui->user_name_label->setText("用户名");
-    ui->user_name_edit->setPlaceholderText("请输入用户名");
+    // ui->user_name_label->setText(tr("用户名"));
+    // ui->user_name_edit->setPlaceholderText(tr("请输入用户名"));
+    ui->user_name_label->setText(tr("user_login_name"));
+    ui->user_name_edit->setPlaceholderText(tr("login_name_hint"));
 
-    ui->nick_name_label->setText("昵称");
-    ui->nick_name_edit->setPlaceholderText("请输入昵称");
+    // ui->nick_name_label->setText(tr("昵称"));
+    // ui->nick_name_edit->setPlaceholderText(tr("请输入昵称"));
+    ui->nick_name_label->setText(tr("user_nick_name"));
+    ui->nick_name_edit->setPlaceholderText(tr("user_nick_name_hint"));
 
-    ui->pwd_label->setText("密码");
-    ui->pwd_edit->setPlaceholderText("请输入密码");
+    // ui->pwd_label->setText(tr("密码"));
+    // ui->pwd_edit->setPlaceholderText(tr("请输入密码"));
+    ui->pwd_label->setText(tr("user_login_pwd"));
+    ui->pwd_edit->setPlaceholderText(tr("login_pwd_hint"));
+
     ui->pwd_edit->setEchoMode(QLineEdit::Password);
 
-    ui->pwd_confirm_label->setText("确认密码");
-    ui->pwd_confirm_edit->setPlaceholderText("请再次输入密码");
+    // ui->pwd_confirm_label->setText(tr("确认密码"));
+    // ui->pwd_confirm_edit->setPlaceholderText(tr("请再次输入密码"));
+    ui->pwd_confirm_label->setText(tr("confirm_label"));
+    ui->pwd_confirm_edit->setPlaceholderText(tr("confirm_label_hint"));
+
     ui->pwd_confirm_edit->setEchoMode(QLineEdit::Password);
 
-    ui->mail_label->setText("邮箱");
-    ui->mail_edit->setPlaceholderText("请输入邮箱");
+    // ui->mail_label->setText(tr("邮箱"));
+    // ui->mail_edit->setPlaceholderText(tr("请输入邮箱"));
+    ui->mail_label->setText(tr("mail_label"));
+    ui->mail_edit->setPlaceholderText(tr("mail_label_hint"));
 
-    ui->reg_btn->setText("注册");
-    this->setWindowTitle("注册");
+    // ui->reg_btn->setText(tr("注册"));
+    ui->reg_btn->setText(tr("reg_btn_txt"));
+
+    // this->setWindowTitle(tr("注册"));
+    this->setWindowTitle(tr("reg_win_title"));
     // 窗体没有最大化最小化按钮
     this->setWindowFlag(Qt::Dialog);
     // 隐藏最大最小化
@@ -47,7 +61,6 @@ void Register::init_ui()
 
 void Register::showEvent(QShowEvent *event)
 {
-    qInfo() << "Register ttttttttttttt showEvent";
     // 设置默认焦点
     // https://blog.csdn.net/hp_cpp/article/details/105847810
     // https://zhuanlan.zhihu.com/p/580701824

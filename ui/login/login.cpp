@@ -17,22 +17,32 @@
 
 void Login::init_ui()
 {
-    // ui->login_name->setText(tr("user name"));
-    ui->login_name->setText("用户名");
-    ui->login_pwd->setText("密码");
+    // ui->login_name->setText(tr("用户名"));
+    // ui->login_pwd->setText(tr("密码"));
+    ui->login_name->setText(tr("login_name"));
+    ui->login_pwd->setText(tr("login_pwd"));
 
-    ui->verify_label->setText("看不清楚？换一张");
-    ui->verify_edit->setPlaceholderText("请输入验证码");
+    // ui->verify_label->setText(tr("看不清楚？换一张"));
+    // ui->verify_edit->setPlaceholderText(tr("请输入验证码"));
+    ui->verify_label->setText(tr("change_verify_code_label"));
+    ui->verify_edit->setPlaceholderText(tr("verify_code_edit"));
 
-    ui->account_edit->setPlaceholderText("请输入账号");
-    ui->pwd_edit->setPlaceholderText("请输入密码");
+    // ui->account_edit->setPlaceholderText(tr("请输入账号"));
+    // ui->pwd_edit->setPlaceholderText(tr("请输入密码"));
+    ui->account_edit->setPlaceholderText(tr("login_name_hint"));
+    ui->pwd_edit->setPlaceholderText(tr("login_pwd_hint"));
+
     ui->pwd_edit->setEchoMode(QLineEdit::Password);
 
-    ui->login_btn->setText("登录");
-    ui->cancel_btn->setText("取消");
+    // ui->login_btn->setText(tr("登录"));
+    // ui->cancel_btn->setText(tr("取消"));
+    ui->login_btn->setText(tr("login_btn_txt"));
+    ui->cancel_btn->setText(tr("cancel_btn_txt"));
 
-    ui->find_pwd->setText("忘记密码？");
-    ui->reg_account->setText("没有账号？去注册");
+    // ui->find_pwd->setText(tr("忘记密码？"));
+    // ui->reg_account->setText(tr("没有账号？去注册"));
+    ui->find_pwd->setText(tr("find_pwd_label_txt"));
+    ui->reg_account->setText(tr("to_register_label_txt"));
 
     // 开启悬停事件
     ui->find_pwd->setAttribute(Qt::WA_Hover, true);
@@ -52,7 +62,8 @@ void Login::init_ui()
     // 验证码
     ui->widget_verification->setBackgroundStyle(BackgroundStyle::E_DOT);
 
-    this->setWindowTitle("登录");
+    // this->setWindowTitle(tr("登录"));
+    this->setWindowTitle(tr("login_win_title"));
     // 窗体没有最大化最小化按钮
     this->setWindowFlag(Qt::Dialog);
     // 隐藏最大最小化
@@ -83,7 +94,6 @@ Login::~Login()
 
 void Login::showEvent(QShowEvent *event)
 {
-    qInfo() << "ttttttttttttt showEvent";
     // 设置默认焦点
     // https://blog.csdn.net/hp_cpp/article/details/105847810
     // https://zhuanlan.zhihu.com/p/580701824
@@ -107,10 +117,14 @@ void Login::on_login_btn_clicked()
     if (!verifyCode())
     {
         QMessageBox msgBox;
-        msgBox.setWindowTitle("警告");
-        msgBox.setText(tr("验证码输入有误"));
+        // msgBox.setWindowTitle(tr("警告"));
+        msgBox.setWindowTitle(tr("login_box_title"));
+        // msgBox.setText(tr("验证码输入有误"));
+        msgBox.setText(tr("login_box_verify_msg"));
         msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setButtonText(QMessageBox::Ok, "确定");
+        // msgBox.setButtonText(QMessageBox::Ok, tr("确定"));
+        msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
+
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
         return;
@@ -120,10 +134,13 @@ void Login::on_login_btn_clicked()
     if (ui->account_edit->text().trimmed().isEmpty())
     {
         QMessageBox msgBox;
-        msgBox.setWindowTitle("警告");
-        msgBox.setText(tr("用户名不能为空"));
+        // msgBox.setWindowTitle(tr("警告"));
+        msgBox.setWindowTitle(tr("login_box_title"));
+        // msgBox.setText(tr("用户名不能为空"));
+        msgBox.setText(tr("login_box_name_empty"));
         msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setButtonText(QMessageBox::Ok, "确定");
+        // msgBox.setButtonText(QMessageBox::Ok, tr("确定"));
+        msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
         return;
@@ -131,10 +148,13 @@ void Login::on_login_btn_clicked()
     if (ui->pwd_edit->text().trimmed().isEmpty())
     {
         QMessageBox msgBox;
-        msgBox.setWindowTitle("警告");
-        msgBox.setText(tr("密码不能为空"));
+        // msgBox.setWindowTitle(tr("警告"));
+        msgBox.setWindowTitle(tr("login_box_title"));
+        // msgBox.setText(tr("密码不能为空"));
+        msgBox.setText(tr("login_box_pwd_empty"));
         msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setButtonText(QMessageBox::Ok, "确定");
+        // msgBox.setButtonText(QMessageBox::Ok, tr("确定"));
+        msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
         return;
@@ -253,15 +273,15 @@ void Login::on_pwd_2_login()
     this->show();
 }
 
-// void Login::changeEvent(QEvent *e)
-// {
-//     QMainWindow::changeEvent(e);
-//     switch (e->type())
-//     {
-//     case QEvent::LanguageChange:
-//         ui->retranslateUi(this);
-//         break;
-//     default:
-//         break;
-//     }
-// }
+void Login::changeEvent(QEvent *e)
+{
+    QMainWindow::changeEvent(e);
+    switch (e->type())
+    {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
+}

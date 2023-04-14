@@ -8,23 +8,30 @@
 void FindPwd::init_ui()
 {
     // ui->login_name->setText(tr("user name"));
-    ui->mail_label->setText("安全邮箱");
-    ui->mail_edit->setPlaceholderText("请输入邮箱账号");
+    // ui->mail_label->setText(tr("安全邮箱"));
+    // ui->mail_edit->setPlaceholderText(tr("请输入邮箱账号"));
+    ui->mail_label->setText(tr("mail_label"));
+    ui->mail_edit->setPlaceholderText(tr("mail_label_hint"));
 
-    ui->pwd_label->setText("密码");
-    ui->pwd_edit->setPlaceholderText("请输入密码");
+    // ui->pwd_label->setText(tr("密码"));
+    // ui->pwd_edit->setPlaceholderText(tr("请输入密码"));
+    ui->pwd_label->setText(tr("pwd_label"));
+    ui->pwd_edit->setPlaceholderText(tr("pwd_hint"));
+
     ui->pwd_edit->setEchoMode(QLineEdit::Password);
 
-    ui->pwd_confirm_label->setText("确认密码");
-    ui->pwd_confirm_edit->setPlaceholderText("请再次输入密码");
+    // ui->pwd_confirm_label->setText(tr("确认密码"));
+    // ui->pwd_confirm_edit->setPlaceholderText(tr("请再次输入密码"));
+    ui->pwd_confirm_label->setText(tr("confirm_pwd_label"));
+    ui->pwd_confirm_edit->setPlaceholderText(tr("confirm_pwd_hint"));
+
     ui->pwd_confirm_edit->setEchoMode(QLineEdit::Password);
 
-    ui->mail_label->setText("邮箱");
-    ui->mail_edit->setPlaceholderText("请输入邮箱");
+    // ui->reset_btn->setText(tr("重置"));
+    ui->reset_btn->setText(tr("reset_btn_txt"));
 
-    ui->reset_btn->setText("重置");
-
-    this->setWindowTitle("密码重置");
+    // this->setWindowTitle(tr("密码重置"));
+    this->setWindowTitle(tr("findpwd_win_title"));
     // 窗体没有最大化最小化按钮
     this->setWindowFlag(Qt::Dialog);
     // 隐藏最大最小化
@@ -43,10 +50,15 @@ void FindPwd::on_reset_btn_clicked()
     // 向服务端发送重置请求
     // 成功则跳转登陆界面
     QMessageBox msgBox;
-    msgBox.setWindowTitle("提示");
-    msgBox.setText(tr("密码重置成功"));
+    // msgBox.setWindowTitle(tr("提示"));
+    msgBox.setWindowTitle(tr("reset_result_title"));
+
+    // msgBox.setText(tr("密码重置成功"));
+    msgBox.setText(tr("reset_result_hint"));
+
     msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setButtonText(QMessageBox::Ok, "确定");
+    // msgBox.setButtonText(QMessageBox::Ok, tr("确定"));
+    msgBox.setButtonText(QMessageBox::Ok, tr("reset_result_btn"));
     msgBox.setIcon(QMessageBox::Information);
     int ret = msgBox.exec();
     switch (ret)

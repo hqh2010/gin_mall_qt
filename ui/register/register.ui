@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="user_name_label">
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>用户名</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="user_name_edit">
@@ -47,7 +47,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>昵称</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="nick_name_edit">
@@ -70,7 +70,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>密码</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="pwd_edit">
@@ -103,7 +103,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>确认密码</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="mail_label">
@@ -116,7 +116,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>邮箱</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="mail_edit">
@@ -139,7 +139,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>注册</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="user_name_hint">
@@ -152,7 +152,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>用户名信息提示</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="pwd_confirm_hint">
@@ -165,7 +165,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>密码信息提示</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="mail_hint">
@@ -178,7 +178,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>邮箱信息提示</string>
+     <string/>
     </property>
    </widget>
   </widget>

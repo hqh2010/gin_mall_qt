@@ -11,6 +11,33 @@ To do list:
 2. Debian打包配置。
 3. 购物车\主页面\个人中心．．．
 
+
+
+全球化
+
+1. 使用lupdate生成ts文件
+
+```bash
+lupdate gin_mall_qt.pro -ts translations/i18n_zh_cn.ts
+```
+
+2. 使用Qt Linguists打开并编辑生成的ts文件
+3. 使用lrelease生成qm文件
+
+```bash
+lrelease translations/i18n_zh_cn.ts -qm translations/i18n_zh_cn.qm　
+```
+
+​    4.使用Qt Creator添加一个qrc文件，包含要使用的语言资源文件
+
+# 参考
+
+https://www.jianshu.com/p/71f738364410
+
+https://www.cnblogs.com/oloroso/p/4596740.html
+
+https://blog.csdn.net/maizousidemao/article/details/127033800?ydreferer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS5oay8%3D
+
 ## License
 
 This project is licensed under [GPLv3](LICENSE) or any later version.

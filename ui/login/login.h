@@ -20,6 +20,7 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override;
     void showEvent(QShowEvent *event) override;
+    void changeEvent(QEvent *e) override;
 private slots:
     void on_login_btn_clicked();
 

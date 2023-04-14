@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Login</string>
+   <string/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="login_name">
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>用户名</string>
+     <string>login_name</string>
     </property>
    </widget>
    <widget class="QLabel" name="login_pwd">
@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>密码</string>
+     <string>login_pwd</string>
     </property>
    </widget>
    <widget class="QPushButton" name="login_btn">
@@ -50,7 +50,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>登录</string>
+     <string>login_btn_txt</string>
     </property>
    </widget>
    <widget class="QPushButton" name="cancel_btn">
@@ -63,7 +63,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>取消</string>
+     <string>cancel_btn_txt</string>
     </property>
    </widget>
    <widget class="QLabel" name="find_pwd">
@@ -76,7 +76,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>忘记密码？</string>
+     <string>find_pwd_label_txt</string>
     </property>
    </widget>
    <widget class="QLabel" name="reg_account">
@@ -89,7 +89,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>没有账号？去注册</string>
+     <string>to_register_label_txt</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="account_edit">
@@ -132,7 +132,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>看不清楚？换一张</string>
+     <string>change_verify_code_label</string>
     </property>
    </widget>
    <widget class="Verification" name="widget_verification" native="true">
