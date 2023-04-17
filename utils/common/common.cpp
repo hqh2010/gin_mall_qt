@@ -3,7 +3,7 @@
 
 #include <QSettings>
 
-const QString SERVER_CFG_PATH = "/home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/misc/conf";
+const QString SERVER_CFG_PATH = "/home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/misc/conf/config";
 
 namespace utils
 {
@@ -22,7 +22,7 @@ namespace utils
 
         QSettings *cfg = new QSettings(SERVER_CFG_PATH, QSettings::IniFormat);
         cfg->beginGroup("service");
-        QString oldUrl = cfg->value("ServiceAddr").toString();
+        value = cfg->value(key).toString();
         cfg->endGroup();
         delete cfg;
         return 0;

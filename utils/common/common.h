@@ -5,7 +5,7 @@
 
 namespace utils
 {
-    bool inline fileExists(const QString &path);
+    bool fileExists(const QString &path);
 
     int getLocalConfig(const QString &key, QString &value);
 }

@@ -18,6 +18,9 @@ typedef struct _user_info
     QString token;
 } UserInfo;
 
+const QString MALL_LOGIN_KEY_USER_NAME = "user_name";
+const QString MALL_LOGIN_KEY_PWD = "password";
+
 enum user_action_type
 {
     REGISTER,

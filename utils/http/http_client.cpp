@@ -7,6 +7,7 @@
 
 #include "model/data/data_def.h"
 #include "utils/serialize/serialize.h"
+#include "utils/common/common.h"
 
 namespace utils
 {
@@ -190,23 +191,46 @@ namespace utils
         loop.exec();
     }
 
+    int post_login(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url)
+    {
+        // QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+        for (auto item : mapData.keys())
+        {
+            QHttpPart itemPart;
+            itemPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=").append(item)));
+            itemPart.setBody(mapData[item].toUtf8());
+            multiPart->append(itemPart);
+        }
+        QString header;
+        QString port;
+        int ret = getLocalConfig("ServiceAddr", header);
+        ret |= getLocalConfig("HttpPort", port);
+        if (ret != 0)
+        {
+            return -1;
+        }
+        QString urlstr = QString("%1/%2").arg(header + port).arg(user_action[LOGIN]);
+        qInfo() << urlstr;
+        url.setUrl(urlstr);
+    }
+
     bool HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg)
     {
         UserInfo user;
-        user.user_name = "uos";
-        user.pwd = "1";
-        QString key1 = "user_name";
+        // user.user_name = "uos";
+        // user.pwd = "1";
+        // QString key1 = "user_name";
 
         // 参考官网源码 https://doc.qt.io/archives/qt-4.8/qhttpmultipart.html
         QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
-        QHttpPart namePart;
-        namePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=").append(key1)));
+        // QHttpPart namePart;
+        // namePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=").append(key1)));
         // namePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"user_name\""));
-        namePart.setBody("uos");
-        QHttpPart pwdPart;
-        pwdPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"password\""));
-        pwdPart.setBody("1");
+        // namePart.setBody("uos");
+        // QHttpPart pwdPart;
+        // pwdPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"password\""));
+        // pwdPart.setBody("1");
 
         // QHttpPart imagePart;
         // imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
@@ -217,10 +241,12 @@ namespace utils
         // file->setParent(multiPart); // we cannot delete the file now, so delete it with the multiPart
         // multiPart->append(imagePart);
 
-        multiPart->append(namePart);
-        multiPart->append(pwdPart);
+        // multiPart->append(namePart);
+        // multiPart->append(pwdPart);
 
-        QUrl url("http://10.20.6.68:3000/api/v1/user/login");
+        // QUrl url("http://10.20.6.68:3000/api/v1/user/login");
+        QUrl url;
+        post_login(mapData, multiPart, url);
         QNetworkRequest request1(url);
 
         // 传递token信息
@@ -254,7 +280,8 @@ namespace utils
         loop.exec();
         int ttt = load_from_json(outMsg, user);
         qInfo() << "load_from_json ret:" << ttt << user.nickname << ", token:" << user.token;
-        return 0;
+        delete multiPart;
+        return true;
     }
 
     bool HttpRestClient::del(QNetworkRequest &request, QString &outMsg)

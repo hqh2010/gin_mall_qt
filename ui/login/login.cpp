@@ -129,8 +129,7 @@ void Login::on_login_btn_clicked()
         msgBox.exec();
         return;
     }
-    // HTTPCLIENT->post_test2();
-    // return;
+
     if (ui->account_edit->text().trimmed().isEmpty())
     {
         QMessageBox msgBox;
@@ -167,7 +166,14 @@ void Login::on_login_btn_clicked()
     // 帐号或密码错误　用户名不存在
     QString out = "";
     QMap<QString, QString> mapData;
-    HTTPCLIENT->post(0, mapData, out);
+    mapData.insert(MALL_LOGIN_KEY_USER_NAME, login_name);
+    mapData.insert(MALL_LOGIN_KEY_PWD, pwd);
+    bool ret = HTTPCLIENT->post(LOGIN, mapData, out);
+    if (!ret)
+    {
+        qCritical() << "connect server failed,please check the network";
+    }
+    qInfo().noquote() << out;
 }
 
 bool Login::eventFilter(QObject *obj, QEvent *event)
