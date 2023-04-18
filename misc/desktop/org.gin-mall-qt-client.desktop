@@ -2,7 +2,7 @@
 Type=Application
 Name=gin-mall-qt-client
 Exec=/usr/bin/gin_mall_qt_client
-# 应用的图标(绝对路径)
+# 应用的图标（绝对路径），应用图标放到/usr/share/icons目录时，可以只写文件名
 Icon=/etc/gin-mall-qt-client/icon/cart.png
 Comment=This is a shopping mall client.
 Terminal=false   
