@@ -162,16 +162,24 @@ void Login::on_login_btn_clicked()
     QString pwd = ui->pwd_edit->text().trimmed();
     qInfo() << "login name:" + login_name << ", pwd:" + pwd;
 
-    // if (ret == )
-    // 帐号或密码错误　用户名不存在
     QString out = "";
+    QString err_info = "";
     QMap<QString, QString> mapData;
     mapData.insert(MALL_LOGIN_KEY_USER_NAME, login_name);
     mapData.insert(MALL_LOGIN_KEY_PWD, pwd);
-    bool ret = HTTPCLIENT->post(LOGIN, mapData, out);
-    if (!ret)
+    int ret = HTTPCLIENT->post(LOGIN, mapData, out, err_info);
+    if (ret)
     {
-        qCritical() << "connect server failed,please check the network";
+        // to do根据服务端状态码来显示错误信息并全球化
+        QMessageBox msgBox;
+        // msgBox.setWindowTitle(tr("警告"));
+        msgBox.setWindowTitle(tr("login_box_title"));
+        msgBox.setText(tr(err_info.toLocal8Bit()));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
     }
     qInfo().noquote() << out;
 }

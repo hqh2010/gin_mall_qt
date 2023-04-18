@@ -19,7 +19,7 @@ namespace utils
         void post_test2();
 
         bool get(QNetworkRequest &request, QString &outMsg);
-        bool post(int action, QMap<QString, QString> mapData, QString &outMsg);
+        int post(int action, QMap<QString, QString> mapData, QString &outMsg, QString& err_info);
         bool put(QNetworkRequest &request, const QByteArray &data, QString &outMsg);
         bool put(QNetworkRequest &request, QHttpMultiPart *multiPart, QString &outMsg);
         // QNetworkReply *del(QNetworkRequest &request);
@@ -28,6 +28,7 @@ namespace utils
     private:
         bool doRequest(const QByteArray &verb, QNetworkRequest &request, QIODevice *data,
                        QHttpMultiPart *multiPart, const QByteArray &bytes, QString &outMsg);
+         int prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url);               
         QString userAgent;
     };
 

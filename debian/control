@@ -1,0 +1,15 @@
+Source: gin-mall-qt-client
+Section: admin
+Priority: optional
+Maintainer: huqinghong <huqinghong@uniontech.com>
+Build-Depends:
+ debhelper (>= 11),
+ qt5-qmake,
+ qtbase5-dev,
+Standards-Version: 4.1.3
+Homepage: http://www.deepin.org
+
+Package: gin-mall-qt-client
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: This is a shopping mall client.

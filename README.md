@@ -6,11 +6,13 @@ gin_mall_qt是一款基于qt框架的电子商城前端，电子商城后端使�
 
 To do list:
 
-1. 界面全球化。
-2. CMake工程改造。
-2. Debian打包配置。
-3. 购物车\主页面\个人中心．．．
+1. 界面全球化。---done
 
+2. CMake工程改造。
+
+3. Debian打包配置。---done
+
+4. 购物车\主页面\个人中心．．．
 
 
 全球化
@@ -37,6 +39,8 @@ https://www.jianshu.com/p/71f738364410
 https://www.cnblogs.com/oloroso/p/4596740.html
 
 https://blog.csdn.net/maizousidemao/article/details/127033800?ydreferer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS5oay8%3D
+
+https://zhuanlan.zhihu.com/p/603853479
 
 ## License
 

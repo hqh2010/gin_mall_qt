@@ -22,7 +22,7 @@
 
 namespace utils
 {
-    int load_from_json(const QString &jsonString, UserInfo &user)
+    int load_from_json(const QString &jsonString, UserInfo &user, QString &err_info)
     {
         QString err;
         QJsonParseError parseJsonErr;
@@ -53,6 +53,7 @@ namespace utils
         if (code != 200)
         {
             err = "app not found in repo";
+            err_info = jsonObject["msg"].toString();
             qCritical().noquote() << jsonString;
             return -1;
         }

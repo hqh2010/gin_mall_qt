@@ -191,7 +191,7 @@ namespace utils
         loop.exec();
     }
 
-    int post_login(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url)
+    int HttpRestClient::prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url)
     {
         // QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
         for (auto item : mapData.keys())
@@ -212,9 +212,10 @@ namespace utils
         QString urlstr = QString("%1/%2").arg(header + port).arg(user_action[LOGIN]);
         qInfo() << urlstr;
         url.setUrl(urlstr);
+        return 0;
     }
 
-    bool HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg)
+    int HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg, QString& err_info)
     {
         UserInfo user;
         // user.user_name = "uos";
@@ -245,26 +246,32 @@ namespace utils
         // multiPart->append(pwdPart);
 
         // QUrl url("http://10.20.6.68:3000/api/v1/user/login");
+        int ret = 0;
         QUrl url;
-        post_login(mapData, multiPart, url);
+        if (LOGIN == action)
+        {
+            ret = prepare_login_cfg(mapData, multiPart, url);
+            if (ret != 0)
+            {
+                return ret;
+            }
+        }
         QNetworkRequest request1(url);
-
         // 传递token信息
         // request.setRawHeader("Authorization", headerData.toLocal8Bit());
         // post_test();
         QNetworkAccessManager manager;
         QNetworkReply *reply = manager.post(request1, multiPart);
         multiPart->setParent(reply); // delete the multiPart with the reply
-                                     // here connect signals etc.
+        ret = -1;
         QEventLoop loop;
-        bool ret = false;
         QObject::connect(reply, &QNetworkReply::finished, &loop, [&]()
                          {
                              outMsg = QString::fromUtf8(reply->readAll());
                              qInfo() << "ttttttttttttttttt:" << outMsg;
                              if (reply->error() == QNetworkReply::NoError)
                              {
-                                 ret = true;
+                                 ret = -1;
                              }
                              else
                              {
@@ -278,10 +285,10 @@ namespace utils
         // 3min 超时
         QTimer::singleShot(3 * 60 * 1000, &loop, &QEventLoop::quit);
         loop.exec();
-        int ttt = load_from_json(outMsg, user);
-        qInfo() << "load_from_json ret:" << ttt << user.nickname << ", token:" << user.token;
+        ret = load_from_json(outMsg, user, err_info);
+        qInfo() << "load_from_json ret:" << ret << user.nickname << ", token:" << user.token;
         delete multiPart;
-        return true;
+        return ret;
     }
 
     bool HttpRestClient::del(QNetworkRequest &request, QString &outMsg)

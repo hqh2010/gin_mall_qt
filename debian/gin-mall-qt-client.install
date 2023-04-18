@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+usr/bin/gin_mall_qt_client
+# 服务端配置文件
+etc/gin-mall-qt-client/config
+# 应用图标文件
+etc/gin-mall-qt-client/icon/cart.png
+usr/share/applications/org.gin-mall-qt-client.desktop

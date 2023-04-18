@@ -3,6 +3,7 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDebug>
 
 #include "model/data/data_def.h"
 
@@ -11,6 +12,6 @@
 // https://qjson.sourceforge.net/
 namespace utils
 {
-    int load_from_json(const QString &jsonString, UserInfo &user);
+    int load_from_json(const QString &jsonString, UserInfo &user, QString &err_info);
 }
 #endif

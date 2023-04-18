@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>translations/i18n_zh_CN.qm</file>
+        <file>translations/i18n_en_US.qm</file>
+        <file>icon/cart.png</file>
+    </qresource>
+</RCC>

@@ -10,6 +10,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    // 设置运行时图标
+    QApplication::setWindowIcon(QIcon(":/icon/cart.png"));
     QLocale local = QLocale::system();
     QLocale::Language lang = local.language();
     qInfo() << "lang=" << lang;

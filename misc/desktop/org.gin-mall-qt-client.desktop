@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=gin-mall-qt-client
+Exec=/usr/bin/gin_mall_qt_client
+Icon=/etc/gin-mall-qt-client/icon/cart.png         #应用的图标(绝对路径)
+Comment=This is a shopping mall client          #说明信息
+Terminal=false   

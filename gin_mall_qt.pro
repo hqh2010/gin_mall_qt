@@ -8,7 +8,12 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
-TARGET = gin_mall_qt
+# 打印QT 版本
+message(Qt Version = $$[QT_VERSION])
+message(arch = $$QT_ARCH)
+
+VERSION = 1.0.0.1
+TARGET = gin_mall_qt_client
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,6 +32,8 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/ui/verification
 
 TRANSLATIONS = translations/i18n_zh_CN.ts translations/i18n_en_US.ts
+
+ICON = icon/cart.png
 
 SOURCES += \
         main.cpp \
@@ -54,11 +61,38 @@ FORMS += \
     ui/find_pwd/findpwd.ui \
     ui/verification/verification.ui
 
-TARGET = gin_mall_qt
+RESOURCES += \
+    res.qrc
+
+# DEFINES += INSTALL_PATH_DEAULT
+INSTALL_PATH_DEAULT = /usr/bin
+
+#contains(DEFINES, INSTALL_PATH){
+#    message(Prefix=$$INSTALL_PATH)
+#}else{
+#    DEFINES += INSTALL_PATH
+#    INSTALL_PATH = $$INSTALL_PATH_DEAULT
+#    message(default=$$INSTALL_PATH)
+#}
+
 # Default rules for deployment.
-qnx: target.path = /home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/build/bin
-else: unix:!android: target.path = /home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/build/bin
+# qnx: target.path = $$[PWD]
+# else: unix:!android: target.path = /home/xxxxxx/Desktop/gin-mall-qt/gin_mall_qt/build/bin
+
+message(current path = $$PWD)
+target.files=$$PWD/gin_mall_qt_client
+target.path=$$INSTALL_PATH_DEAULT
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    lan.qrc
+# 安装图标文件
+icon_cfg.files=$$PWD/icon/cart.png
+icon_cfg.path=/etc/gin-mall-qt-client/icon/
+unix:icon_cfg.extra = mkdir -p /etc/gin-mall-qt-client/icon
+# 安装服务端配置文件
+server_cfg.files=$$PWD/misc/conf/config
+server_cfg.path=/etc/gin-mall-qt-client
+# 安装desktop文件
+desktop_cfg.files=$$PWD/misc/desktop/org.gin-mall-qt-client.desktop
+desktop_cfg.path=/usr/share/applications/
+
+INSTALLS += icon_cfg server_cfg desktop_cfg
