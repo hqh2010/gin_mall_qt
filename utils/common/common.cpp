@@ -3,7 +3,8 @@
 
 #include <QSettings>
 
-const QString SERVER_CFG_PATH = "/home/uthuqinghong/Desktop/gin-mall-qt/gin_mall_qt/misc/conf/config";
+// 调试时可以使用项目代码库中的配置文件
+const QString SERVER_CFG_PATH = "/etc/gin-mall-qt-client/config";
 
 namespace utils
 {

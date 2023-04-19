@@ -271,7 +271,7 @@ namespace utils
                              qInfo() << "ttttttttttttttttt:" << outMsg;
                              if (reply->error() == QNetworkReply::NoError)
                              {
-                                 ret = -1;
+                                 ret = 0;
                              }
                              else
                              {
