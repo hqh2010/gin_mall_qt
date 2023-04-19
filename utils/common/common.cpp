@@ -14,6 +14,16 @@ namespace utils
         return fs.exists() && fs.isFile() ? true : false;
     }
 
+    bool createDir(const QString &path)
+    {
+        auto val = QDir().exists(path);
+        if (!val)
+        {
+            return QDir().mkpath(path);
+        }
+        return true;
+    }
+
     int getLocalConfig(const QString &key, QString &value)
     {
         if (!fileExists(SERVER_CFG_PATH))

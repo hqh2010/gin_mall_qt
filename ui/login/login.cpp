@@ -2,6 +2,7 @@
 #include "ui_login.h"
 
 #include "utils/http/http_client.h"
+#include "utils/serialize/serialize.h"
 
 #include "model/data/data_def.h"
 
@@ -14,6 +15,18 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTextCodec>
+
+UserInfo current_user = {
+    .id = -1, 
+    .user_name = QString(),
+    .pwd = QString(),
+    .email = QString(),
+    .nickname = QString(),
+    .Status = QString(),
+    .avatar = QString(),
+    .money = QString(),
+    .token = QString()
+};
 
 void Login::init_ui()
 {
@@ -168,6 +181,8 @@ void Login::on_login_btn_clicked()
     mapData.insert(MALL_LOGIN_KEY_USER_NAME, login_name);
     mapData.insert(MALL_LOGIN_KEY_PWD, pwd);
     int ret = HTTPCLIENT->post(LOGIN, mapData, out, err_info);
+    ret |= utils::load_from_json(out, current_user, err_info);
+    qInfo() << "load_from_json ret:" << ret << current_user.nickname << ", token:" << current_user.token;
     if (ret)
     {
         // to do根据服务端状态码来显示错误信息并全球化
@@ -182,6 +197,11 @@ void Login::on_login_btn_clicked()
         return;
     }
     qInfo().noquote() << out;
+    // 跳转主页面
+    QDesktopWidget *desktop = QApplication::desktop();
+    home_win.move((desktop->width() - home_win.width()) / 2, (desktop->height() - home_win.height()) / 2);
+    home_win.show();
+    this->hide();
 }
 
 bool Login::eventFilter(QObject *obj, QEvent *event)

@@ -98,6 +98,7 @@ void Verification::updateCode()
 	m_verificationCode = getVerificationCodeByRand();
 	m_colors = getColors();
 	update();
+	qInfo() << "verification code:" << m_verificationCode;
 }
 
 // void Verification::mouseDoubleClickEvent(QMouseEvent *event)

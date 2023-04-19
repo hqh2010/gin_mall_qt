@@ -59,11 +59,13 @@ SOURCES       = main.cpp \
 		utils/http/http_client.cpp \
 		utils/serialize/serialize.cpp \
 		utils/common/common.cpp \
-		ui/verification/verification.cpp qrc_res.cpp \
+		ui/verification/verification.cpp \
+		ui/home/home.cpp qrc_res.cpp \
 		moc_login.cpp \
 		moc_register.cpp \
 		moc_findpwd.cpp \
-		moc_verification.cpp
+		moc_verification.cpp \
+		moc_home.cpp
 OBJECTS       = main.o \
 		login.o \
 		register.o \
@@ -72,11 +74,13 @@ OBJECTS       = main.o \
 		serialize.o \
 		common.o \
 		verification.o \
+		home.o \
 		qrc_res.o \
 		moc_login.o \
 		moc_register.o \
 		moc_findpwd.o \
-		moc_verification.o
+		moc_verification.o \
+		moc_home.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -175,14 +179,16 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		utils/common/common.h \
 		utils/serialize/serialize.h \
 		model/data/data_def.h \
-		ui/verification/verification.h main.cpp \
+		ui/verification/verification.h \
+		ui/home/home.h main.cpp \
 		ui/login/login.cpp \
 		ui/register/register.cpp \
 		ui/find_pwd/findpwd.cpp \
 		utils/http/http_client.cpp \
 		utils/serialize/serialize.cpp \
 		utils/common/common.cpp \
-		ui/verification/verification.cpp
+		ui/verification/verification.cpp \
+		ui/home/home.cpp
 QMAKE_TARGET  = gin_mall_qt_client
 DESTDIR       = 
 TARGET        = gin_mall_qt_client
@@ -191,7 +197,7 @@ TARGET        = gin_mall_qt_client
 first: all
 ####### Build rules
 
-gin_mall_qt_client: ui_login.h ui_register.h ui_findpwd.h ui_verification.h $(OBJECTS)  
+gin_mall_qt_client: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: gin_mall_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -393,9 +399,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ui/login/login.h ui/register/register.h ui/find_pwd/findpwd.h ui/find_pwd/findpwd.h utils/singleton/singleton.h utils/http/http_client.h utils/common/common.h utils/serialize/serialize.h model/data/data_def.h ui/verification/verification.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp ui/login/login.cpp ui/register/register.cpp ui/find_pwd/findpwd.cpp utils/http/http_client.cpp utils/serialize/serialize.cpp utils/common/common.cpp ui/verification/verification.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ui/login/login.ui ui/register/register.ui ui/find_pwd/findpwd.ui ui/verification/verification.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ui/login/login.h ui/register/register.h ui/find_pwd/findpwd.h ui/find_pwd/findpwd.h utils/singleton/singleton.h utils/http/http_client.h utils/common/common.h utils/serialize/serialize.h model/data/data_def.h ui/verification/verification.h ui/home/home.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp ui/login/login.cpp ui/register/register.cpp ui/find_pwd/findpwd.cpp utils/http/http_client.cpp utils/serialize/serialize.cpp utils/common/common.cpp ui/verification/verification.cpp ui/home/home.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ui/login/login.ui ui/register/register.ui ui/find_pwd/findpwd.ui ui/verification/verification.ui ui/home/home.ui $(DISTDIR)/
 	$(COPY_FILE) --parents translations/i18n_zh_CN.ts translations/i18n_en_US.ts $(DISTDIR)/
 
 
@@ -436,12 +442,13 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp
+compiler_moc_header_make_all: moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp
+	-$(DEL_FILE) moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp
 moc_login.cpp: ui/login/login.h \
 		ui/register/register.h \
 		ui/find_pwd/findpwd.h \
+		ui/home/home.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/login/login.h -o moc_login.cpp
@@ -466,13 +473,18 @@ moc_verification.cpp: ui/verification/verification.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/verification/verification.h -o moc_verification.cpp
 
+moc_home.cpp: ui/home/home.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/home/home.h -o moc_home.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_login.h ui_register.h ui_findpwd.h ui_verification.h
+compiler_uic_make_all: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_login.h ui_register.h ui_findpwd.h ui_verification.h
+	-$(DEL_FILE) ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h
 ui_login.h: ui/login/login.ui \
 		/usr/lib/qt5/bin/uic \
 		ui/verification/verification.h
@@ -490,6 +502,10 @@ ui_verification.h: ui/verification/verification.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ui/verification/verification.ui -o ui_verification.h
 
+ui_home.h: ui/home/home.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ui/home/home.ui -o ui_home.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -503,15 +519,18 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 main.o: main.cpp utils/common/common.h \
 		ui/login/login.h \
 		ui/register/register.h \
-		ui/find_pwd/findpwd.h
+		ui/find_pwd/findpwd.h \
+		ui/home/home.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 login.o: ui/login/login.cpp ui/login/login.h \
 		ui/register/register.h \
 		ui/find_pwd/findpwd.h \
+		ui/home/home.h \
 		ui_login.h \
 		utils/http/http_client.h \
 		utils/singleton/singleton.h \
+		utils/serialize/serialize.h \
 		model/data/data_def.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ui/login/login.cpp
 
@@ -526,7 +545,6 @@ findpwd.o: ui/find_pwd/findpwd.cpp ui/find_pwd/findpwd.h \
 http_client.o: utils/http/http_client.cpp utils/http/http_client.h \
 		utils/singleton/singleton.h \
 		model/data/data_def.h \
-		utils/serialize/serialize.h \
 		utils/common/common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o http_client.o utils/http/http_client.cpp
 
@@ -539,6 +557,14 @@ common.o: utils/common/common.cpp utils/common/common.h
 
 verification.o: ui/verification/verification.cpp ui/verification/verification.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o verification.o ui/verification/verification.cpp
+
+home.o: ui/home/home.cpp ui/home/home.h \
+		ui_home.h \
+		model/data/data_def.h \
+		utils/common/common.h \
+		utils/http/http_client.h \
+		utils/singleton/singleton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o home.o ui/home/home.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
@@ -554,6 +580,9 @@ moc_findpwd.o: moc_findpwd.cpp
 
 moc_verification.o: moc_verification.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_verification.o moc_verification.cpp
+
+moc_home.o: moc_home.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_home.o moc_home.cpp
 
 ####### Install
 

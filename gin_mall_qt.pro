@@ -43,7 +43,8 @@ SOURCES += \
     utils/http/http_client.cpp \
     utils/serialize/serialize.cpp \
     utils/common/common.cpp \
-    ui/verification/verification.cpp
+    ui/verification/verification.cpp \
+    ui/home/home.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -54,12 +55,14 @@ HEADERS += \
     utils/common/common.h \
     utils/serialize/serialize.h \
     model/data/data_def.h \
-    ui/verification/verification.h
+    ui/verification/verification.h \
+    ui/home/home.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
     ui/find_pwd/findpwd.ui \
-    ui/verification/verification.ui
+    ui/verification/verification.ui \
+    ui/home/home.ui
 
 RESOURCES += \
     res.qrc

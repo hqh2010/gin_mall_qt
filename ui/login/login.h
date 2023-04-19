@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "ui/register/register.h"
 #include "ui/find_pwd/findpwd.h"
-
+#include "ui/home/home.h"
 namespace Ui
 {
     class Login;
@@ -46,6 +46,8 @@ private:
     Register reg_win;
 
     FindPwd pwd_win;
+
+    Home home_win;
 };
 
 #endif // LOGIN_H

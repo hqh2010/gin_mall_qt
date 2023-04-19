@@ -6,7 +6,6 @@
 #include <QHttpMultiPart>
 
 #include "model/data/data_def.h"
-#include "utils/serialize/serialize.h"
 #include "utils/common/common.h"
 
 namespace utils
@@ -215,9 +214,42 @@ namespace utils
         return 0;
     }
 
-    int HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg, QString& err_info)
+    int HttpRestClient::download_img(const QString &url, QByteArray &image)
     {
-        UserInfo user;
+
+        QNetworkRequest request(url);
+        // 传递token信息
+        // request.setRawHeader("Authorization", headerData.toLocal8Bit());
+        // post_test();
+        QNetworkAccessManager manager;
+        QNetworkReply *reply = manager.get(request);
+        int ret = -1;
+        QEventLoop loop;
+        QString outMsg = "";
+        QObject::connect(reply, &QNetworkReply::finished, &loop, [&]()
+                         {
+                             image = reply->readAll();
+                             if (reply->error() == QNetworkReply::NoError)
+                             {
+                                 ret = 0;
+                             }
+                             else
+                             {
+                                 outMsg.append(QString(" err info:%1").arg(reply->errorString()));
+                                 qCritical() << outMsg << reply->error();
+                                 reply->abort();
+                             }
+                             reply->deleteLater();
+                             loop.quit();
+                         });
+        // 3min 超时
+        QTimer::singleShot(3 * 60 * 1000, &loop, &QEventLoop::quit);
+        loop.exec();
+        return ret;
+    }
+
+    int HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg, QString &err_info)
+    {
         // user.user_name = "uos";
         // user.pwd = "1";
         // QString key1 = "user_name";
@@ -285,8 +317,6 @@ namespace utils
         // 3min 超时
         QTimer::singleShot(3 * 60 * 1000, &loop, &QEventLoop::quit);
         loop.exec();
-        ret = load_from_json(outMsg, user, err_info);
-        qInfo() << "load_from_json ret:" << ret << user.nickname << ", token:" << user.token;
         delete multiPart;
         return ret;
     }

@@ -18,6 +18,7 @@ namespace utils
         void post_test();
         void post_test2();
 
+        int download_img(const QString &url, QByteArray &image);
         bool get(QNetworkRequest &request, QString &outMsg);
         int post(int action, QMap<QString, QString> mapData, QString &outMsg, QString& err_info);
         bool put(QNetworkRequest &request, const QByteArray &data, QString &outMsg);
