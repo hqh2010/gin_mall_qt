@@ -5,6 +5,7 @@
 #include "model/data/data_def.h"
 #include "utils/common/common.h"
 #include "utils/http/http_client.h"
+#include <QHBoxLayout>
 
 extern UserInfo current_user;
 
@@ -18,6 +19,36 @@ void Home::init_ui()
     // to do 购物车显示图片和数量
     ui->cart_label->setText(tr("购物车"));
 
+    // 初始化首页轮播图
+    ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget->setTabText(0, tr("首页"));
+    ui->tabWidget->setTabText(1, tr("全部商品"));
+    ui->tabWidget->setTabText(2, tr("关于我们"));
+    ui->tabWidget->setFixedSize(QSize(850, 750));
+    this->setFixedSize(QSize(850, 900));
+
+    ui->first_tab->setStyleSheet("background-color:white;");
+    CarouselImageWidget* carousel_img = ui->first_tab->findChild<CarouselImageWidget*>("carousel_img_widget");
+    carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/1.jpg");
+    carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/2.jpg");
+    carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/3.jpg");
+    carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/4.jpg");
+    carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/5.jpg");
+    carousel_img->setControlButtonColor(Qt::yellow);
+    carousel_img->setBorderColor(Qt::red);
+    carousel_img->setImageChangeDuration(2000);
+    carousel_img->startPlay();
+    qInfo() << "tttttttttttttttttttt height:" << carousel_img->height() << ", width:" << carousel_img->width();
+    // QWidget *widget = new QWidget();
+    // QLineEdit *lineEdit = new QLineEdit();
+    // QPushButton *pushButton = new QPushButton("Test");
+    // QVBoxLayout *vLayout = new QVBoxLayout();
+    // vLayout->addWidget(lineEdit);
+    // vLayout->addWidget(pushButton);
+    // widget->setLayout(vLayout);
+    // ui->tabWidget->addTab(widget, tr("首页"));
+
+
     this->setWindowTitle(tr("Shopping Mall"));
     // 窗体没有最大化最小化按钮
     this->setWindowFlag(Qt::Dialog);
@@ -28,6 +59,8 @@ void Home::init_ui()
     // 窗口固定大小，禁止拖动右下角改变大小
     setFixedSize(this->width(), this->height());
 
+
+    connect(ui->tabWidget,SIGNAL(currentChanged(int)),this,SLOT(on_tab_change(int)));
     // connect(ui->user_info_comboBox, SIGNAL(currentTextChanged(const QString &text)), this, SLOT(on_comboBox_currentIndexChanged(const QString &arg)));
 }
 
@@ -41,6 +74,12 @@ Home::Home(QWidget *parent) : QMainWindow(parent),
 Home::~Home()
 {
     delete ui;
+}
+
+void Home::on_tab_change(int index)
+{
+    qInfo() << "on_tab_change index:" << index;
+    //ui->tabWidget->setCurrentIndex(index);
 }
 
 void Home::on_search_btn_clicked()

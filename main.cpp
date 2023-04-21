@@ -4,6 +4,8 @@
 #include <QLocale>
 #include <QDebug>
 
+#include "ui/carousel_img/carouselimagewidget.h"
+
 #include "utils/common/common.h"
 #include "ui/login/login.h"
 
@@ -34,6 +36,22 @@ int main(int argc, char *argv[])
     QDesktopWidget *desktop = QApplication::desktop();
     w.move((desktop->width() - w.width()) / 2, (desktop->height() - w.height()) / 2);
     w.show();
+
+    // CarouselImageWidget w;
+    // w.addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/1.jpg");
+    // w.addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/2.jpg");
+    // w.addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/3.jpg");
+    // w.addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/4.jpg");
+    // w.addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/5.jpg");
+    // w.setControlButtonColor(Qt::yellow);
+    // w.setBorderColor(Qt::red);
+    // w.setImageChangeDuration(2000);
+    // w.startPlay();
+
+    // QDesktopWidget *desktop = QApplication::desktop();
+    // w.move((desktop->width() - w.width()) / 2, (desktop->height() - w.height()) / 2);
+    // qInfo() << "tttttttttttttttttttt height:" << w.height() << ", width:" << w.width();
+    // w.show();
 
     return a.exec();
 }

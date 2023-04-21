@@ -14,7 +14,6 @@ To do list:
 
 4. 购物车\主页面\个人中心．．．
 
-
 全球化
 
 1. 使用lupdate生成ts文件
@@ -30,7 +29,7 @@ lupdate gin_mall_qt.pro -ts translations/i18n_zh_cn.ts
 lrelease translations/i18n_zh_cn.ts -qm translations/i18n_zh_cn.qm　
 ```
 
-​    4.使用Qt Creator添加一个qrc文件，包含要使用的语言资源文件
+    4.使用Qt Creator添加一个qrc文件，包含要使用的语言资源文件
 
 # 参考
 
@@ -41,6 +40,8 @@ https://www.cnblogs.com/oloroso/p/4596740.html
 https://blog.csdn.net/maizousidemao/article/details/127033800?ydreferer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS5oay8%3D
 
 https://zhuanlan.zhihu.com/p/603853479
+
+https://github.com/MovingPig/CarouselImageWindow
 
 ## License
 

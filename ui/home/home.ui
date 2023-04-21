@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
-    <height>656</height>
+    <width>830</width>
+    <height>1053</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,26 +17,36 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>771</width>
-      <height>471</height>
+      <x>0</x>
+      <y>50</y>
+      <width>821</width>
+      <height>821</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="first_tab">
      <attribute name="title">
       <string>首页</string>
      </attribute>
+     <widget class="CarouselImageWidget" name="carousel_img_widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>821</width>
+        <height>701</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="all_sales_tab">
      <attribute name="title">
       <string>全部商品</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="all_about_tab">
      <attribute name="title">
       <string>关于我们</string>
      </attribute>
@@ -45,9 +55,9 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>-10</x>
       <y>0</y>
-      <width>771</width>
+      <width>841</width>
       <height>51</height>
      </rect>
     </property>
@@ -86,7 +96,7 @@
     <widget class="QLabel" name="favorite_label">
      <property name="geometry">
       <rect>
-       <x>560</x>
+       <x>570</x>
        <y>20</y>
        <width>63</width>
        <height>22</height>
@@ -99,7 +109,7 @@
     <widget class="QLabel" name="order_label">
      <property name="geometry">
       <rect>
-       <x>630</x>
+       <x>640</x>
        <y>20</y>
        <width>63</width>
        <height>22</height>
@@ -112,7 +122,7 @@
     <widget class="QLabel" name="cart_label">
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>720</x>
        <y>20</y>
        <width>63</width>
        <height>22</height>
@@ -127,7 +137,7 @@
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>60</y>
+      <y>50</y>
       <width>171</width>
       <height>36</height>
      </rect>
@@ -137,7 +147,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>60</y>
+      <y>50</y>
       <width>106</width>
       <height>36</height>
      </rect>
@@ -152,13 +162,21 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>805</width>
+     <width>830</width>
      <height>36</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CarouselImageWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">carouselimagewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

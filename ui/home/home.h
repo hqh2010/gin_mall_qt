@@ -21,6 +21,8 @@ private slots:
 
     void on_user_info_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_tab_change(int index);
+
 private:
     void init_ui();
 

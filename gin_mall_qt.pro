@@ -29,7 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-INCLUDEPATH += $$PWD/ui/verification
+INCLUDEPATH += $$PWD/ui/verification $$PWD/ui/carousel_img
 
 TRANSLATIONS = translations/i18n_zh_CN.ts translations/i18n_en_US.ts
 
@@ -44,7 +44,8 @@ SOURCES += \
     utils/serialize/serialize.cpp \
     utils/common/common.cpp \
     ui/verification/verification.cpp \
-    ui/home/home.cpp
+    ui/home/home.cpp \
+    ui/carousel_img/carouselimagewidget.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -56,13 +57,15 @@ HEADERS += \
     utils/serialize/serialize.h \
     model/data/data_def.h \
     ui/verification/verification.h \
-    ui/home/home.h
+    ui/home/home.h \
+    ui/carousel_img/carouselimagewidget.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
     ui/find_pwd/findpwd.ui \
     ui/verification/verification.ui \
-    ui/home/home.ui
+    ui/home/home.ui \
+    ui/carousel_img/carouselimagewidget.ui
 
 RESOURCES += \
     res.qrc
