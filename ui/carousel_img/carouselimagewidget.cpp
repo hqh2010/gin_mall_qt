@@ -130,6 +130,7 @@ void CarouselImageWidget::initChangeImageButton()
 
 
     connect(changeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(onImageSwitchButtonClicked(int)));
+    connect(buy_btn, SIGNAL(clicked()),this, SLOT(onBuyButtonClicked()));
 }
 
 void CarouselImageWidget::setImageList(QStringList imageFileNameList)
@@ -277,6 +278,11 @@ void CarouselImageWidget::onImageSwitchButtonClicked(int buttonId)
     onImageChangeTimeout();
     m_imageChangeTimer.start(m_imageChangeDuration);
     update();
+}
+
+void CarouselImageWidget::onBuyButtonClicked()
+{
+    qInfo() << "onBuyButtonClicked current img:" << m_currentDrawImageIndx;
 }
 
 void CarouselImageWidget::mousePressEvent(QMouseEvent* event)

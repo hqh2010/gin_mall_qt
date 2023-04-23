@@ -166,6 +166,11 @@
      </attribute>
     </widget>
    </widget>
+   <zorder>frame</zorder>
+   <zorder>product_listWidget</zorder>
+   <zorder>tabWidget</zorder>
+   <zorder>search_edit</zorder>
+   <zorder>search_btn</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

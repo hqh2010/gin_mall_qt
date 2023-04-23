@@ -68,6 +68,9 @@ public slots:
     // 图片切换按钮点击;
     void onImageSwitchButtonClicked(int buttonId);
 
+    // 立即购买按钮点击;
+    void onBuyButtonClicked();
+
 private:
     Ui::CarouselImageWidget *ui;
 
