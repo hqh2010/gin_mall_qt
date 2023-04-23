@@ -2,6 +2,7 @@
 #define HOME_H
 
 #include <QMainWindow>
+#include <QListWidget>
 
 namespace Ui {
 class Home;
@@ -23,7 +24,7 @@ private slots:
 
     void on_tab_change(int index);
 
-    void init_product_info();
+    void init_product_info(QListWidget *listWidget);
 private:
     void init_ui();
 

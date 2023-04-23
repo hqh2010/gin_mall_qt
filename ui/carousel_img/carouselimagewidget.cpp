@@ -28,8 +28,10 @@ CarouselImageWidget::CarouselImageWidget(QWidget *parent) :
     // 按钮BackWidget;
     m_buttonBackWidget = new QWidget;
     m_buttonBackWidget->setStyleSheet(".QWidget{background:transparent;}");
-    // this->setFixedSize(QSize(550, 650));
-    this->setFixedSize(QSize(850, 650));
+    // 设置大小
+    m_win_size.setWidth(850);
+    m_win_size.setHeight(400);
+    this->setFixedSize(m_win_size);
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
 
@@ -114,8 +116,9 @@ void CarouselImageWidget::initChangeImageButton()
     productLayout->addStretch(3);
     productLayout->setSpacing(0);
     productLayout->setMargin(0);
-    m_productWidget->setFixedWidth(300);
-    m_productWidget->setFixedHeight(650);
+    // m_productWidget->setFixedWidth(300);
+    // m_productWidget->setFixedHeight(650);
+    m_productWidget->setFixedSize(m_win_size);
     // QPalette pal(m_productWidget->palette());
 
     // 设置背景白色

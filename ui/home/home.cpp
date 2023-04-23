@@ -6,19 +6,19 @@
 #include "utils/common/common.h"
 #include "utils/http/http_client.h"
 #include <QHBoxLayout>
-#include <QListWidget>
 #include <QScrollArea>
 
+#include "carouselimagewidget.h"
 #include "custom_list_item/custilistitem.h"
 
 extern UserInfo current_user;
 
-void Home::init_product_info()
+void Home::init_product_info(QListWidget *listWidget)
 {
     // i代表行数
     for (int i = 0; i < 2; i++)
     {
-        QWidget *widget2 = new QWidget(ui->product_listWidget);
+        QWidget *widget2 = new QWidget(listWidget);
 
         QHBoxLayout *hLayout = new QHBoxLayout;
         // j 代表列数，每列4个
@@ -65,8 +65,8 @@ void Home::init_product_info()
         item->setSizeHint(QSize(this->width(), 150));
         // 取消选中，否则点击时会选中整行
         item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
-        ui->product_listWidget->addItem(item);
-        ui->product_listWidget->setItemWidget(item, widget2);
+        listWidget->addItem(item);
+        listWidget->setItemWidget(item, widget2);
     }
 }
 
@@ -85,11 +85,14 @@ void Home::init_ui()
     ui->tabWidget->setTabText(0, tr("首页"));
     ui->tabWidget->setTabText(1, tr("全部商品"));
     ui->tabWidget->setTabText(2, tr("关于我们"));
-    ui->tabWidget->setFixedSize(QSize(850, 750));
-    this->setFixedSize(QSize(850, 1500));
+    ui->tabWidget->setFixedSize(QSize(850, 850));
+    this->setFixedSize(QSize(850, 900));
 
+    QWidget *scroll_widget = new QWidget(ui->first_tab);
+    QVBoxLayout *vLayout = new QVBoxLayout;
+    CarouselImageWidget *carousel_img = new CarouselImageWidget(scroll_widget);
     ui->first_tab->setStyleSheet("background-color:white;");
-    CarouselImageWidget *carousel_img = ui->first_tab->findChild<CarouselImageWidget *>("carousel_img_widget");
+    // CarouselImageWidget *carousel_img = ui->first_tab->findChild<CarouselImageWidget *>("carousel_img_widget");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/1.jpg");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/2.jpg");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/3.jpg");
@@ -99,18 +102,15 @@ void Home::init_ui()
     carousel_img->setBorderColor(Qt::red);
     carousel_img->setImageChangeDuration(2000);
     carousel_img->startPlay();
+    vLayout->addWidget(carousel_img);
     qInfo() << "tttttttttttttttttttt height:" << carousel_img->height() << ", width:" << carousel_img->width();
-    // QWidget *widget = new QWidget();
-    // QLineEdit *lineEdit = new QLineEdit();
-    // QPushButton *pushButton = new QPushButton("Test");
-    // QVBoxLayout *vLayout = new QVBoxLayout();
-    // vLayout->addWidget(lineEdit);
-    // vLayout->addWidget(pushButton);
-    // widget->setLayout(vLayout);
-    // ui->tabWidget->addTab(widget, tr("首页"));
 
-    // 初始化产品列表
-    init_product_info();
+    // 增加滚动条
+    QListWidget *product_listWidget = new QListWidget(scroll_widget);
+    init_product_info(product_listWidget);
+    vLayout->addWidget(product_listWidget);
+    scroll_widget->setLayout(vLayout);
+    scroll_widget->setFixedSize(QSize(850, 900));
 
     this->setWindowTitle(tr("Shopping Mall"));
     // 窗体没有最大化最小化按钮
@@ -122,11 +122,18 @@ void Home::init_ui()
     // 窗口固定大小，禁止拖动右下角改变大小
     setFixedSize(this->width(), this->height());
 
-    // QScrollArea *m_pScroll = new QScrollArea(this);
+    QScrollArea *m_pScroll = new QScrollArea(this);
     // 给centralwidget设置滚动条
-    // m_pScroll->setWidget(ui->centralwidget);
+    m_pScroll->setWidget(scroll_widget);
+
     // 这里注意，要比主窗体的尺寸要大，不然太小的话会留下一片空白
     // ui->centralwidget->setMinimumSize(1500,1000);
+
+    QVBoxLayout *pLayout = new QVBoxLayout;
+    pLayout->addWidget(m_pScroll);
+    pLayout->setMargin(0);
+    pLayout->setSpacing(0);
+    ui->first_tab->setLayout(pLayout);
 
     connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tab_change(int)));
     connect(ui->search_btn, SIGNAL(clicked()), this, SLOT(on_search_btn_clicked()));

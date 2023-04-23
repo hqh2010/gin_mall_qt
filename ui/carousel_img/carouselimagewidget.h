@@ -105,6 +105,8 @@ private:
     bool m_isShowBorder;
     int m_borderWidth;
     int m_borderRadian;
+
+    QSize m_win_size;
 };
 
 #endif // CAROUSELIMAGEWIDGET_H

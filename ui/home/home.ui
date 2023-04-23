@@ -7,27 +7,21 @@
     <x>0</x>
     <y>0</y>
     <width>830</width>
-    <height>1053</height>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
       <x>-10</x>
       <y>0</y>
-      <width>841</width>
+      <width>851</width>
       <height>51</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
     </property>
     <widget class="QComboBox" name="user_info_comboBox">
      <property name="geometry">
@@ -98,7 +92,7 @@
    <widget class="QLineEdit" name="search_edit">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>540</x>
       <y>50</y>
       <width>171</width>
       <height>36</height>
@@ -108,7 +102,7 @@
    <widget class="QPushButton" name="search_btn">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>720</x>
       <y>50</y>
       <width>106</width>
       <height>36</height>
@@ -116,16 +110,6 @@
     </property>
     <property name="text">
      <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="product_listWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>780</y>
-      <width>831</width>
-      <height>201</height>
-     </rect>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
@@ -138,22 +122,12 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="first_tab">
      <attribute name="title">
       <string>首页</string>
      </attribute>
-     <widget class="CarouselImageWidget" name="carousel_img_widget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>821</width>
-        <height>501</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="all_sales_tab">
      <attribute name="title">
@@ -166,8 +140,7 @@
      </attribute>
     </widget>
    </widget>
-   <zorder>frame</zorder>
-   <zorder>product_listWidget</zorder>
+   <zorder>groupBox</zorder>
    <zorder>tabWidget</zorder>
    <zorder>search_edit</zorder>
    <zorder>search_btn</zorder>
@@ -184,14 +157,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>CarouselImageWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">carouselimagewidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
