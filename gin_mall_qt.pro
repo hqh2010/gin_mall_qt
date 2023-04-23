@@ -45,7 +45,9 @@ SOURCES += \
     utils/common/common.cpp \
     ui/verification/verification.cpp \
     ui/home/home.cpp \
-    ui/carousel_img/carouselimagewidget.cpp
+    ui/carousel_img/carouselimagewidget.cpp \
+    ui/test/test.cpp \
+    ui/home/custom_list_item/custilistitem.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -58,14 +60,17 @@ HEADERS += \
     model/data/data_def.h \
     ui/verification/verification.h \
     ui/home/home.h \
-    ui/carousel_img/carouselimagewidget.h
+    ui/carousel_img/carouselimagewidget.h \
+    ui/test/test.h \
+    ui/home/custom_list_item/custilistitem.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
     ui/find_pwd/findpwd.ui \
     ui/verification/verification.ui \
     ui/home/home.ui \
-    ui/carousel_img/carouselimagewidget.ui
+    ui/carousel_img/carouselimagewidget.ui \
+    ui/test/test.ui
 
 RESOURCES += \
     res.qrc

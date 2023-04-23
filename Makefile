@@ -61,13 +61,17 @@ SOURCES       = main.cpp \
 		utils/common/common.cpp \
 		ui/verification/verification.cpp \
 		ui/home/home.cpp \
-		ui/carousel_img/carouselimagewidget.cpp qrc_res.cpp \
+		ui/carousel_img/carouselimagewidget.cpp \
+		ui/test/test.cpp \
+		ui/home/custom_list_item/custilistitem.cpp qrc_res.cpp \
 		moc_login.cpp \
 		moc_register.cpp \
 		moc_findpwd.cpp \
 		moc_verification.cpp \
 		moc_home.cpp \
-		moc_carouselimagewidget.cpp
+		moc_carouselimagewidget.cpp \
+		moc_test.cpp \
+		moc_custilistitem.cpp
 OBJECTS       = main.o \
 		login.o \
 		register.o \
@@ -78,13 +82,17 @@ OBJECTS       = main.o \
 		verification.o \
 		home.o \
 		carouselimagewidget.o \
+		test.o \
+		custilistitem.o \
 		qrc_res.o \
 		moc_login.o \
 		moc_register.o \
 		moc_findpwd.o \
 		moc_verification.o \
 		moc_home.o \
-		moc_carouselimagewidget.o
+		moc_carouselimagewidget.o \
+		moc_test.o \
+		moc_custilistitem.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -185,7 +193,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		model/data/data_def.h \
 		ui/verification/verification.h \
 		ui/home/home.h \
-		ui/carousel_img/carouselimagewidget.h main.cpp \
+		ui/carousel_img/carouselimagewidget.h \
+		ui/test/test.h \
+		ui/home/custom_list_item/custilistitem.h main.cpp \
 		ui/login/login.cpp \
 		ui/register/register.cpp \
 		ui/find_pwd/findpwd.cpp \
@@ -194,7 +204,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		utils/common/common.cpp \
 		ui/verification/verification.cpp \
 		ui/home/home.cpp \
-		ui/carousel_img/carouselimagewidget.cpp
+		ui/carousel_img/carouselimagewidget.cpp \
+		ui/test/test.cpp \
+		ui/home/custom_list_item/custilistitem.cpp
 QMAKE_TARGET  = gin_mall_qt_client
 DESTDIR       = 
 TARGET        = gin_mall_qt_client
@@ -203,7 +215,7 @@ TARGET        = gin_mall_qt_client
 first: all
 ####### Build rules
 
-gin_mall_qt_client: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h $(OBJECTS)  
+gin_mall_qt_client: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h ui_test.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: gin_mall_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -405,9 +417,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ui/login/login.h ui/register/register.h ui/find_pwd/findpwd.h ui/find_pwd/findpwd.h utils/singleton/singleton.h utils/http/http_client.h utils/common/common.h utils/serialize/serialize.h model/data/data_def.h ui/verification/verification.h ui/home/home.h ui/carousel_img/carouselimagewidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp ui/login/login.cpp ui/register/register.cpp ui/find_pwd/findpwd.cpp utils/http/http_client.cpp utils/serialize/serialize.cpp utils/common/common.cpp ui/verification/verification.cpp ui/home/home.cpp ui/carousel_img/carouselimagewidget.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ui/login/login.ui ui/register/register.ui ui/find_pwd/findpwd.ui ui/verification/verification.ui ui/home/home.ui ui/carousel_img/carouselimagewidget.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ui/login/login.h ui/register/register.h ui/find_pwd/findpwd.h ui/find_pwd/findpwd.h utils/singleton/singleton.h utils/http/http_client.h utils/common/common.h utils/serialize/serialize.h model/data/data_def.h ui/verification/verification.h ui/home/home.h ui/carousel_img/carouselimagewidget.h ui/test/test.h ui/home/custom_list_item/custilistitem.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp ui/login/login.cpp ui/register/register.cpp ui/find_pwd/findpwd.cpp utils/http/http_client.cpp utils/serialize/serialize.cpp utils/common/common.cpp ui/verification/verification.cpp ui/home/home.cpp ui/carousel_img/carouselimagewidget.cpp ui/test/test.cpp ui/home/custom_list_item/custilistitem.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ui/login/login.ui ui/register/register.ui ui/find_pwd/findpwd.ui ui/verification/verification.ui ui/home/home.ui ui/carousel_img/carouselimagewidget.ui ui/test/test.ui $(DISTDIR)/
 	$(COPY_FILE) --parents translations/i18n_zh_CN.ts translations/i18n_en_US.ts $(DISTDIR)/
 
 
@@ -448,9 +460,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp moc_carouselimagewidget.cpp
+compiler_moc_header_make_all: moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp moc_carouselimagewidget.cpp moc_test.cpp moc_custilistitem.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp moc_carouselimagewidget.cpp
+	-$(DEL_FILE) moc_login.cpp moc_register.cpp moc_findpwd.cpp moc_findpwd.cpp moc_verification.cpp moc_home.cpp moc_carouselimagewidget.cpp moc_test.cpp moc_custilistitem.cpp
 moc_login.cpp: ui/login/login.h \
 		ui/register/register.h \
 		ui/find_pwd/findpwd.h \
@@ -489,13 +501,23 @@ moc_carouselimagewidget.cpp: ui/carousel_img/carouselimagewidget.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/carousel_img -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/carousel_img/carouselimagewidget.h -o moc_carouselimagewidget.cpp
 
+moc_test.cpp: ui/test/test.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/carousel_img -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/test/test.h -o moc_test.cpp
+
+moc_custilistitem.cpp: ui/home/custom_list_item/custilistitem.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/uthuqinghong/Desktop/334455/gin_mall_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/uthuqinghong/Desktop/334455/gin_mall_qt -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/verification -I/home/uthuqinghong/Desktop/334455/gin_mall_qt/ui/carousel_img -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui/home/custom_list_item/custilistitem.h -o moc_custilistitem.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h
+compiler_uic_make_all: ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h ui_test.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h
+	-$(DEL_FILE) ui_login.h ui_register.h ui_findpwd.h ui_verification.h ui_home.h ui_carouselimagewidget.h ui_test.h
 ui_login.h: ui/login/login.ui \
 		/usr/lib/qt5/bin/uic \
 		ui/verification/verification.h
@@ -522,6 +544,10 @@ ui_carouselimagewidget.h: ui/carousel_img/carouselimagewidget.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ui/carousel_img/carouselimagewidget.ui -o ui_carouselimagewidget.h
 
+ui_test.h: ui/test/test.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ui/test/test.ui -o ui_test.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -537,7 +563,8 @@ main.o: main.cpp ui/carousel_img/carouselimagewidget.h \
 		ui/login/login.h \
 		ui/register/register.h \
 		ui/find_pwd/findpwd.h \
-		ui/home/home.h
+		ui/home/home.h \
+		ui/test/test.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 login.o: ui/login/login.cpp ui/login/login.h \
@@ -580,12 +607,20 @@ home.o: ui/home/home.cpp ui/home/home.h \
 		model/data/data_def.h \
 		utils/common/common.h \
 		utils/http/http_client.h \
-		utils/singleton/singleton.h
+		utils/singleton/singleton.h \
+		ui/home/custom_list_item/custilistitem.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o home.o ui/home/home.cpp
 
 carouselimagewidget.o: ui/carousel_img/carouselimagewidget.cpp ui/carousel_img/carouselimagewidget.h \
 		ui_carouselimagewidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o carouselimagewidget.o ui/carousel_img/carouselimagewidget.cpp
+
+test.o: ui/test/test.cpp ui/test/test.h \
+		ui_test.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test.o ui/test/test.cpp
+
+custilistitem.o: ui/home/custom_list_item/custilistitem.cpp ui/home/custom_list_item/custilistitem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o custilistitem.o ui/home/custom_list_item/custilistitem.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
@@ -607,6 +642,12 @@ moc_home.o: moc_home.cpp
 
 moc_carouselimagewidget.o: moc_carouselimagewidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_carouselimagewidget.o moc_carouselimagewidget.cpp
+
+moc_test.o: moc_test.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_test.o moc_test.cpp
+
+moc_custilistitem.o: moc_custilistitem.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_custilistitem.o moc_custilistitem.cpp
 
 ####### Install
 

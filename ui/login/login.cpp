@@ -74,6 +74,7 @@ void Login::init_ui()
 
     // 验证码
     ui->widget_verification->setBackgroundStyle(BackgroundStyle::E_DOT);
+    qInfo() << "tttttttttttttttttttt init_ui verify code:" << ui->widget_verification->getVerificationCode().toUpper();
 
     // this->setWindowTitle(tr("登录"));
     this->setWindowTitle(tr("login_win_title"));

@@ -14,44 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>50</y>
-      <width>821</width>
-      <height>821</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="first_tab">
-     <attribute name="title">
-      <string>首页</string>
-     </attribute>
-     <widget class="CarouselImageWidget" name="carousel_img_widget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>821</width>
-        <height>701</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="all_sales_tab">
-     <attribute name="title">
-      <string>全部商品</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="all_about_tab">
-     <attribute name="title">
-      <string>关于我们</string>
-     </attribute>
-    </widget>
-   </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
@@ -155,6 +117,54 @@
     <property name="text">
      <string>PushButton</string>
     </property>
+   </widget>
+   <widget class="QListWidget" name="product_listWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>780</y>
+      <width>831</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>50</y>
+      <width>831</width>
+      <height>711</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="first_tab">
+     <attribute name="title">
+      <string>首页</string>
+     </attribute>
+     <widget class="CarouselImageWidget" name="carousel_img_widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>821</width>
+        <height>501</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="all_sales_tab">
+     <attribute name="title">
+      <string>全部商品</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="all_about_tab">
+     <attribute name="title">
+      <string>关于我们</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

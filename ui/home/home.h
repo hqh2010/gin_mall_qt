@@ -23,6 +23,7 @@ private slots:
 
     void on_tab_change(int index);
 
+    void init_product_info();
 private:
     void init_ui();
 

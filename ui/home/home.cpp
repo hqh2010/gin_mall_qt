@@ -6,8 +6,69 @@
 #include "utils/common/common.h"
 #include "utils/http/http_client.h"
 #include <QHBoxLayout>
+#include <QListWidget>
+#include <QScrollArea>
+
+#include "custom_list_item/custilistitem.h"
 
 extern UserInfo current_user;
+
+void Home::init_product_info()
+{
+    // i代表行数
+    for (int i = 0; i < 2; i++)
+    {
+        QWidget *widget2 = new QWidget(ui->product_listWidget);
+
+        QHBoxLayout *hLayout = new QHBoxLayout;
+        // j 代表列数，每列4个
+        for (int j = 0; j < 4; j++)
+        {
+            // QWidget *widget = new QWidget;
+            // widget->setObjectName(QString("item%1").arg(4 * i + j + 1));
+            // QVBoxLayout *verLayout = new QVBoxLayout;
+            // verLayout->setContentsMargins(0, 0, 0, 0);
+            // verLayout->setSpacing(10);
+            // QLabel *icon_label = new QLabel;
+            // QPixmap pixmap(QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            // pixmap = pixmap.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            // icon_label->setPixmap(pixmap);
+            // 点击事件交由父控件处理
+            // icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+            // verLayout->addWidget(icon_label);
+            // QLabel *dsc_label = new QLabel;
+            // dsc_label->setText(tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()));
+            // 点击事件交由父控件处理
+            // dsc_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+            // verLayout->addWidget(dsc_label);
+            // widget->setLayout(verLayout);
+            // widget->show();
+            // hLayout->addStretch();
+            // hLayout->addWidget(widget);
+            // connect(widget,SIGNAL(currentChanged(int)),this,SLOT(on_tab_change(int)));
+
+            CustIListItem *widget = new CustIListItem(widget2);
+            widget->set_item(4 * i + j + 1, tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()), QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            // widget->show();
+            hLayout->addStretch();
+            hLayout->addWidget(widget);
+        }
+        hLayout->addStretch();
+        // hLayout->setMargin(0);
+        // hLayout->setSpacing(10);
+
+        // QWidget *widget2 = new QWidget(this);
+        widget2->setLayout(hLayout);
+        widget2->show();
+        QListWidgetItem *item = new QListWidgetItem();
+        // 设置item的大小，大小应该比每个item
+        item->setSizeHint(QSize(this->width(), 150));
+        // 取消选中，否则点击时会选中整行
+        item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
+        ui->product_listWidget->addItem(item);
+        ui->product_listWidget->setItemWidget(item, widget2);
+    }
+}
 
 void Home::init_ui()
 {
@@ -25,10 +86,10 @@ void Home::init_ui()
     ui->tabWidget->setTabText(1, tr("全部商品"));
     ui->tabWidget->setTabText(2, tr("关于我们"));
     ui->tabWidget->setFixedSize(QSize(850, 750));
-    this->setFixedSize(QSize(850, 900));
+    this->setFixedSize(QSize(850, 1500));
 
     ui->first_tab->setStyleSheet("background-color:white;");
-    CarouselImageWidget* carousel_img = ui->first_tab->findChild<CarouselImageWidget*>("carousel_img_widget");
+    CarouselImageWidget *carousel_img = ui->first_tab->findChild<CarouselImageWidget *>("carousel_img_widget");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/1.jpg");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/2.jpg");
     carousel_img->addImage("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/carousel_img_res/3.jpg");
@@ -48,6 +109,8 @@ void Home::init_ui()
     // widget->setLayout(vLayout);
     // ui->tabWidget->addTab(widget, tr("首页"));
 
+    // 初始化产品列表
+    init_product_info();
 
     this->setWindowTitle(tr("Shopping Mall"));
     // 窗体没有最大化最小化按钮
@@ -59,8 +122,14 @@ void Home::init_ui()
     // 窗口固定大小，禁止拖动右下角改变大小
     setFixedSize(this->width(), this->height());
 
+    // QScrollArea *m_pScroll = new QScrollArea(this);
+    // 给centralwidget设置滚动条
+    // m_pScroll->setWidget(ui->centralwidget);
+    // 这里注意，要比主窗体的尺寸要大，不然太小的话会留下一片空白
+    // ui->centralwidget->setMinimumSize(1500,1000);
 
-    connect(ui->tabWidget,SIGNAL(currentChanged(int)),this,SLOT(on_tab_change(int)));
+    connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tab_change(int)));
+    connect(ui->search_btn, SIGNAL(clicked()), this, SLOT(on_search_btn_clicked()));
     // connect(ui->user_info_comboBox, SIGNAL(currentTextChanged(const QString &text)), this, SLOT(on_comboBox_currentIndexChanged(const QString &arg)));
 }
 
@@ -84,6 +153,7 @@ void Home::on_tab_change(int index)
 
 void Home::on_search_btn_clicked()
 {
+    qInfo() << "tttttttttttttttttttt on_search_btn_clicked";
 }
 
 void Home::showEvent(QShowEvent *event)

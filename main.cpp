@@ -9,6 +9,8 @@
 #include "utils/common/common.h"
 #include "ui/login/login.h"
 
+#include "ui/test/test.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -52,6 +54,11 @@ int main(int argc, char *argv[])
     // w.move((desktop->width() - w.width()) / 2, (desktop->height() - w.height()) / 2);
     // qInfo() << "tttttttttttttttttttt height:" << w.height() << ", width:" << w.width();
     // w.show();
+
+    //Test w;
+    //QDesktopWidget *desktop = QApplication::desktop();
+    //w.move((desktop->width() - w.width()) / 2, (desktop->height() - w.height()) / 2);
+    //w.show();
 
     return a.exec();
 }
