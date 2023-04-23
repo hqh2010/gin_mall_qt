@@ -85,9 +85,10 @@ void Home::init_ui()
     ui->tabWidget->setTabText(0, tr("首页"));
     ui->tabWidget->setTabText(1, tr("全部商品"));
     ui->tabWidget->setTabText(2, tr("关于我们"));
-    ui->tabWidget->setFixedSize(QSize(850, 850));
+    ui->tabWidget->setFixedSize(QSize(850, 800));
     this->setFixedSize(QSize(850, 900));
 
+    this->setStyleSheet("background-color:white;");
     QWidget *scroll_widget = new QWidget(ui->first_tab);
     QVBoxLayout *vLayout = new QVBoxLayout;
     CarouselImageWidget *carousel_img = new CarouselImageWidget(scroll_widget);
@@ -103,14 +104,43 @@ void Home::init_ui()
     carousel_img->setImageChangeDuration(2000);
     carousel_img->startPlay();
     vLayout->addWidget(carousel_img);
-    qInfo() << "tttttttttttttttttttt height:" << carousel_img->height() << ", width:" << carousel_img->width();
+    QLabel *list_label = new QLabel(scroll_widget);
+    list_label->setText(tr("推荐"));
+    vLayout->addWidget(list_label);
+    // qInfo() << "tttttttttttttttttttt height:" << carousel_img->height() << ", width:" << carousel_img->width();
 
     // 增加滚动条
     QListWidget *product_listWidget = new QListWidget(scroll_widget);
     init_product_info(product_listWidget);
+    // QListWidget不显示边框
+    product_listWidget->setFrameShape(QListWidget::NoFrame);
+    // QListWidget不显示滚动条
+    product_listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    product_listWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
     vLayout->addWidget(product_listWidget);
+
+    QWidget *page_info_widget = new QWidget(scroll_widget);
+
+    QHBoxLayout *pageInfoLayout = new QHBoxLayout;
+    QPushButton *pre_btn = new QPushButton(page_info_widget);
+    QPushButton *next_btn = new QPushButton(page_info_widget);
+    pre_btn->setText("<");
+    next_btn->setText(">");
+    QLabel *page_label = new QLabel(page_info_widget);
+    page_label->setText(QString("1/1"));
+    pageInfoLayout->addStretch();
+    pageInfoLayout->addWidget(pre_btn);
+    pageInfoLayout->addWidget(next_btn);
+    pageInfoLayout->addWidget(page_label);
+    page_info_widget->setLayout(pageInfoLayout);
+    page_info_widget->setFixedWidth(850);
+    pageInfoLayout->addStretch();
+
+    vLayout->addWidget(page_info_widget);
+
     scroll_widget->setLayout(vLayout);
-    scroll_widget->setFixedSize(QSize(850, 900));
+    scroll_widget->setFixedSize(QSize(850, 800));
 
     this->setWindowTitle(tr("Shopping Mall"));
     // 窗体没有最大化最小化按钮
@@ -125,6 +155,10 @@ void Home::init_ui()
     QScrollArea *m_pScroll = new QScrollArea(this);
     // 给centralwidget设置滚动条
     m_pScroll->setWidget(scroll_widget);
+    // 隐藏竖向滚动条
+    // m_pScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    // 隐藏横向滚动条
+    m_pScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     // 这里注意，要比主窗体的尺寸要大，不然太小的话会留下一片空白
     // ui->centralwidget->setMinimumSize(1500,1000);
@@ -134,6 +168,9 @@ void Home::init_ui()
     pLayout->setMargin(0);
     pLayout->setSpacing(0);
     ui->first_tab->setLayout(pLayout);
+
+    // 不显示状态栏
+    ui->statusbar->hide();
 
     connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tab_change(int)));
     connect(ui->search_btn, SIGNAL(clicked()), this, SLOT(on_search_btn_clicked()));
