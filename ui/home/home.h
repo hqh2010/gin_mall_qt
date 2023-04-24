@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QListWidget>
+#include <QLabel>
 
-namespace Ui {
-class Home;
+namespace Ui
+{
+    class Home;
 }
 
 class Home : public QMainWindow
@@ -24,12 +26,25 @@ private slots:
 
     void on_tab_change(int index);
 
-    void init_product_info(QListWidget *listWidget);
+    void on_pre_btn_clicked();
+
+    void on_next_btn_clicked();
+
 private:
     void init_ui();
+    void init_product_info(QListWidget *listWidget);
+    void set_listwidget(const int current_page);
 
 private:
     Ui::Home *ui;
+
+    QListWidget *product_listWidget;
+
+    QLabel *page_label;
+
+    int m_current_page = 1;
+
+    int total_page = 2;
 };
 
 #endif // HOME_H

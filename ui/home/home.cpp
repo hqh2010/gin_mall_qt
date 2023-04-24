@@ -70,6 +70,86 @@ void Home::init_product_info(QListWidget *listWidget)
     }
 }
 
+void Home::set_listwidget(const int current_page)
+{
+    // 假设有 13 件商品
+    int total_num = 13;
+    // 每页显示　8　个 ，页码下标从1开始
+    int start_num = 8 * (current_page - 1);
+    int line_num = 1;
+    if (total_num > start_num + 4)
+    {
+        line_num = 2;
+    }
+    int row_start = 2 * (current_page - 1);
+
+    for (int i = row_start; i < row_start + line_num; i++)
+    {
+        QWidget *widget2 = new QWidget(product_listWidget);
+
+        QHBoxLayout *hLayout = new QHBoxLayout;
+        bool flag = true;
+        // j 代表列数，每列4个
+        for (int j = 0; j < 4; j++)
+        {
+            // QWidget *widget = new QWidget;
+            // widget->setObjectName(QString("item%1").arg(4 * i + j + 1));
+            // QVBoxLayout *verLayout = new QVBoxLayout;
+            // verLayout->setContentsMargins(0, 0, 0, 0);
+            // verLayout->setSpacing(10);
+            // QLabel *icon_label = new QLabel;
+            // QPixmap pixmap(QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            // pixmap = pixmap.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            // icon_label->setPixmap(pixmap);
+            // 点击事件交由父控件处理
+            // icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+            // verLayout->addWidget(icon_label);
+            // QLabel *dsc_label = new QLabel;
+            // dsc_label->setText(tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()));
+            // 点击事件交由父控件处理
+            // dsc_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+            // verLayout->addWidget(dsc_label);
+            // widget->setLayout(verLayout);
+            // widget->show();
+            // hLayout->addStretch();
+            // hLayout->addWidget(widget);
+            // connect(widget,SIGNAL(currentChanged(int)),this,SLOT(on_tab_change(int)));
+            if (4 * i + j + 1 > total_num)
+            {
+                flag = false;
+                break;
+            }
+            CustIListItem *widget = new CustIListItem(widget2);
+            widget->set_item(4 * i + j + 1, tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()), QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            // widget->show();
+            hLayout->addStretch(1);
+            hLayout->addWidget(widget);
+        }
+        // 不够时做一个近似的对齐吧．．．
+        if (flag)
+        {
+            hLayout->addStretch(1);
+        }
+        else
+        {
+            hLayout->addStretch(8);
+        }
+        // hLayout->setMargin(0);
+        // hLayout->setSpacing(10);
+
+        // QWidget *widget2 = new QWidget(this);
+        widget2->setLayout(hLayout);
+        widget2->show();
+        QListWidgetItem *item = new QListWidgetItem();
+        // 设置item的大小，大小应该比每个item
+        item->setSizeHint(QSize(this->width(), 150));
+        // 取消选中，否则点击时会选中整行
+        item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
+        product_listWidget->addItem(item);
+        product_listWidget->setItemWidget(item, widget2);
+    }
+}
+
 void Home::init_ui()
 {
     ui->search_btn->setText(tr("搜索"));
@@ -110,7 +190,7 @@ void Home::init_ui()
     // qInfo() << "tttttttttttttttttttt height:" << carousel_img->height() << ", width:" << carousel_img->width();
 
     // 增加滚动条
-    QListWidget *product_listWidget = new QListWidget(scroll_widget);
+    product_listWidget = new QListWidget(scroll_widget);
     init_product_info(product_listWidget);
     // QListWidget不显示边框
     product_listWidget->setFrameShape(QListWidget::NoFrame);
@@ -127,8 +207,9 @@ void Home::init_ui()
     QPushButton *next_btn = new QPushButton(page_info_widget);
     pre_btn->setText("<");
     next_btn->setText(">");
-    QLabel *page_label = new QLabel(page_info_widget);
-    page_label->setText(QString("1/1"));
+    page_label = new QLabel(page_info_widget);
+    // page_label->setText(QString("1/1"));
+    page_label->setText(QString("%1/%2").arg(m_current_page).arg(total_page));
     pageInfoLayout->addStretch();
     pageInfoLayout->addWidget(pre_btn);
     pageInfoLayout->addWidget(next_btn);
@@ -174,7 +255,37 @@ void Home::init_ui()
 
     connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tab_change(int)));
     connect(ui->search_btn, SIGNAL(clicked()), this, SLOT(on_search_btn_clicked()));
+
+    connect(pre_btn, SIGNAL(clicked()), this, SLOT(on_pre_btn_clicked()));
+    connect(next_btn, SIGNAL(clicked()), this, SLOT(on_next_btn_clicked()));
     // connect(ui->user_info_comboBox, SIGNAL(currentTextChanged(const QString &text)), this, SLOT(on_comboBox_currentIndexChanged(const QString &arg)));
+}
+
+void Home::on_pre_btn_clicked()
+{
+    qInfo() << "on_pre_btn_clicked";
+    if (m_current_page <= 1)
+    {
+        return;
+    }
+    product_listWidget->clear();
+    m_current_page--;
+    set_listwidget(m_current_page);
+    page_label->setText(QString("%1/%2").arg(m_current_page).arg(total_page));
+}
+
+void Home::on_next_btn_clicked()
+{
+    qInfo() << "on_next_btn_clicked";
+    if (m_current_page >= total_page)
+    {
+        return;
+    }
+
+    product_listWidget->clear();
+    m_current_page++;
+    set_listwidget(m_current_page);
+    page_label->setText(QString("%1/%2").arg(m_current_page).arg(total_page));
 }
 
 Home::Home(QWidget *parent) : QMainWindow(parent),
@@ -192,7 +303,9 @@ Home::~Home()
 void Home::on_tab_change(int index)
 {
     qInfo() << "on_tab_change index:" << index;
-    //ui->tabWidget->setCurrentIndex(index);
+    // ui->tabWidget->setCurrentIndex(index);
+    // 获取发射信号的对象
+    // QPushButton* btn = qobject_cast<QPushButton*>(sender());
 }
 
 void Home::on_search_btn_clicked()
