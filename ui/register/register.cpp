@@ -1,8 +1,14 @@
 #include "register.h"
 #include "ui_register.h"
 
-#include <QDebug>
 #include <QCloseEvent>
+#include <QDebug>
+#include <QMessageBox>
+
+#include "model/data/data_def.h"
+
+#include "utils/http/http_client.h"
+#include "utils/serialize/serialize.h"
 
 Register::Register(QWidget *parent) : QMainWindow(parent),
                                       ui(new Ui::Register)
@@ -77,6 +83,56 @@ void Register::showEvent(QShowEvent *event)
 void Register::on_reg_btn_clicked()
 {
     qInfo() << ui->user_name_edit->text().trimmed() << "register success";
+    if (ui->user_name_label->text().trimmed().isEmpty())
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("警告"));
+        // msgBox.setWindowTitle(tr("reg_box_title"));
+        msgBox.setText(tr("用户名不能为空"));
+        // msgBox.setText(tr("reg_box_name_empty"));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setButtonText(QMessageBox::Ok, tr("确定"));
+        // msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+    // 校验用户名
+    // 校验密码
+    // 校验安全邮箱
+
+    QString user_name = ui->user_name_edit->text().trimmed();
+    QString nick_name = ui->nick_name_edit->text().trimmed();
+    QString pwd = ui->pwd_edit->text().trimmed();
+    QString mail = ui->mail_edit->text().trimmed();
+
+    qInfo() << user_name << nick_name << pwd << mail;
+    QString out = "";
+    QString err_info = "";
+    QMap<QString, QString> mapData;
+    mapData.insert(MALL_KEY_USER_NAME, user_name);
+    mapData.insert(MALL_KEY_PWD, pwd);
+    mapData.insert(MALL_KEY_NICK_NAME, nick_name);
+    mapData.insert(MALL_KEY_KEY, mail);
+
+    int ret = HTTPCLIENT->post(REGISTER, mapData, out, err_info);
+    // ret |= utils::load_from_json(out, current_user, err_info);
+    // qInfo() << "load_from_json ret:" << ret << current_user.nickname << ", token:" << current_user.token;
+    qInfo() << "load_from_json ret:" << ret << out;
+    if (ret)
+    {
+        // to do根据服务端状态码来显示错误信息并全球化
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("警告"));
+        // msgBox.setWindowTitle(tr("login_box_title"));
+        msgBox.setText(tr(err_info.toLocal8Bit()));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        // msgBox.setButtonText(QMessageBox::Ok, tr("login_box_btn"));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+
     emit regToLoginWin();
 }
 

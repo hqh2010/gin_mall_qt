@@ -125,7 +125,7 @@ void Home::set_listwidget(const int current_page)
             hLayout->addStretch(1);
             hLayout->addWidget(widget);
         }
-        // 不够时做一个近似的对齐吧．．．
+        // 不够整行时，做一个近似的对齐．待后续使用qtablewidget改造
         if (flag)
         {
             hLayout->addStretch(1);

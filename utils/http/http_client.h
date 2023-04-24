@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 
 #include "utils/singleton/singleton.h"
+#include "model/data/data_def.h"
 
 namespace utils
 {
@@ -29,7 +30,7 @@ namespace utils
     private:
         bool doRequest(const QByteArray &verb, QNetworkRequest &request, QIODevice *data,
                        QHttpMultiPart *multiPart, const QByteArray &bytes, QString &outMsg);
-         int prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url);               
+         int prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type);              
         QString userAgent;
     };
 

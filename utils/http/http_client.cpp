@@ -5,7 +5,6 @@
 #include <QTimer>
 #include <QHttpMultiPart>
 
-#include "model/data/data_def.h"
 #include "utils/common/common.h"
 
 namespace utils
@@ -190,7 +189,7 @@ namespace utils
         loop.exec();
     }
 
-    int HttpRestClient::prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url)
+    int HttpRestClient::prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type)
     {
         // QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
         for (auto item : mapData.keys())
@@ -208,7 +207,7 @@ namespace utils
         {
             return -1;
         }
-        QString urlstr = QString("%1/%2").arg(header + port).arg(user_action[LOGIN]);
+        QString urlstr = QString("%1/%2").arg(header + port).arg(user_action[type]);
         qInfo() << urlstr;
         url.setUrl(urlstr);
         return 0;
@@ -280,14 +279,13 @@ namespace utils
         // QUrl url("http://10.20.6.68:3000/api/v1/user/login");
         int ret = 0;
         QUrl url;
-        if (LOGIN == action)
+
+        ret = prepare_login_cfg(mapData, multiPart, url, action);
+        if (ret != 0)
         {
-            ret = prepare_login_cfg(mapData, multiPart, url);
-            if (ret != 0)
-            {
-                return ret;
-            }
+            return ret;
         }
+
         QNetworkRequest request1(url);
         // 传递token信息
         // request.setRawHeader("Authorization", headerData.toLocal8Bit());
