@@ -7,7 +7,7 @@ AboutAppWidget::AboutAppWidget(QWidget *parent) : QWidget(parent),
     ui->setupUi(this);
 
     ui->title_label->setText(tr("关于我们"));
-    ui->dsc_label->setText(tr("本项目是基于qt的一个电子商城的学习练手的项目，\n欢迎各位踊跃提出意见！"));
+    ui->dsc_label->setText(tr("本项目是基于qt的一个电子商城的学习练手的项目，\n欢迎各路大神不吝賜教踊跃提交pr！"));
     // 设置label换行
     ui->dsc_label->setWordWrap(true);
     // ui->dsc_label->setFixedWidth(320);

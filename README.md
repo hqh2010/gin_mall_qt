@@ -1,20 +1,51 @@
 ### gin_mall_qt
 
-gin_mall_qt是一款基于qt框架的电子商城前端，电子商城后端使用go语言基于gin框架实现。
+gin_mall_qt是一款基于qt框架的电子商城前端，[电子商城后端gin_mall](https://github.com/CocaineCong/gin-mall)使用go语言基于gin框架实现。
 
-目前实现了仅登陆注册及界面之间的跳转。
+# 说明
 
-To do list:
+```bash
+qmake .
 
-1. 界面全球化。---done
+make -j2
 
-2. CMake工程改造。
+./gin_mall_qt_client
+```
 
-3. Debian打包配置。---done
+备注：由于源码中的资源图片暂未加到qrc，在构建前请手动修改源码中以绝对路径配置的资源图片。
 
-4. 购物车\主页面\个人中心．．．
+代码当前处于调试练手阶段，代码风格\内存检测还未处理，欢迎不不吝赐教，积极提交pr，不喜勿喷，谢谢合作．．．
 
-全球化
+# 项目需要完善的地方
+
+1. 界面全球化。---做了一部分
+2. 购物车\主页面\我的收藏\商品详情\收货地址管理\搜索．．．
+3. 部分已实现页面的布局美化
+4. 代码扫描(内存检测)．．．
+
+# 部分已实现页面展示
+
+登陆
+
+![](./test_result/login.png)
+
+注册
+
+![](./test_result/reg.png)
+
+账号修改
+
+![](./test_result/account_set.png)
+
+主页
+
+![](./test_result/home.png)
+
+关于
+
+![](./test_result/about.png)
+
+# 全球化
 
 1. 使用lupdate生成ts文件
 
@@ -42,6 +73,8 @@ https://blog.csdn.net/maizousidemao/article/details/127033800?ydreferer=aHR0cHM6
 https://zhuanlan.zhihu.com/p/603853479
 
 https://github.com/MovingPig/CarouselImageWindow
+
+https://github.com/congz666/cmall-vue
 
 ## License
 

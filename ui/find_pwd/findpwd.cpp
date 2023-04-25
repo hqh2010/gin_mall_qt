@@ -12,7 +12,7 @@ void FindPwd::init_ui()
     // ui->mail_edit->setPlaceholderText(tr("请输入邮箱账号"));
     ui->mail_label->setText(tr("mail_label"));
     ui->mail_edit->setPlaceholderText(tr("mail_label_hint"));
-
+    ui->mail_hint->hide();
     // ui->pwd_label->setText(tr("密码"));
     // ui->pwd_edit->setPlaceholderText(tr("请输入密码"));
     ui->pwd_label->setText(tr("pwd_label"));
@@ -26,7 +26,7 @@ void FindPwd::init_ui()
     ui->pwd_confirm_edit->setPlaceholderText(tr("confirm_pwd_hint"));
 
     ui->pwd_confirm_edit->setEchoMode(QLineEdit::Password);
-
+    ui->pwd_confirm_hint->hide();
     // ui->reset_btn->setText(tr("重置"));
     ui->reset_btn->setText(tr("reset_btn_txt"));
 
