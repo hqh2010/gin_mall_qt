@@ -328,7 +328,7 @@ void Home::showEvent(QShowEvent *event)
         {
             return;
         }
-        QString urlstr = QString("%1/static/imgs/avatar/%3").arg(header + port).arg(img_name);
+        QString urlstr = QString("%1/static/imgs/avatar/user%2/%3").arg(header + port).arg(current_user.id).arg(img_name);
         qInfo() << "Home::showEvent urlstr:" << urlstr;
         QPixmap pixmap;
         QByteArray img_bytes;
@@ -357,7 +357,7 @@ void Home::showEvent(QShowEvent *event)
         ui->user_img_label->setPixmap(pixmap);
         // 设置图片宽度
         ui->user_img_label->heightForWidth(100);
-        ui->user_img_label->show();
+        // ui->user_img_label->show();
         ui->user_info_comboBox->clear();
         ui->user_info_comboBox->addItem(tr(current_user.nickname.toLocal8Bit()));
         ui->user_info_comboBox->addItem(tr("帐户管理"));
@@ -369,4 +369,13 @@ void Home::showEvent(QShowEvent *event)
 void Home::on_user_info_comboBox_currentTextChanged(const QString &arg1)
 {
     qInfo() << "tttttttttttt comboBox text:" << arg1;
+    if (arg1 == QString("帐户管理"))
+    {
+        if (!account_win)
+        {
+            account_win = new AccountManage;
+        }
+        account_win->show();
+        this->hide();
+    }
 }

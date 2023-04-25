@@ -47,7 +47,8 @@ SOURCES += \
     ui/home/home.cpp \
     ui/carousel_img/carouselimagewidget.cpp \
     ui/test/test.cpp \
-    ui/home/custom_list_item/custilistitem.cpp
+    ui/home/custom_list_item/custilistitem.cpp \
+    ui/account_manage/accountmanage.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -62,7 +63,8 @@ HEADERS += \
     ui/home/home.h \
     ui/carousel_img/carouselimagewidget.h \
     ui/test/test.h \
-    ui/home/custom_list_item/custilistitem.h
+    ui/home/custom_list_item/custilistitem.h \
+    ui/account_manage/accountmanage.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
@@ -70,7 +72,8 @@ FORMS += \
     ui/verification/verification.ui \
     ui/home/home.ui \
     ui/carousel_img/carouselimagewidget.ui \
-    ui/test/test.ui
+    ui/test/test.ui \
+    ui/account_manage/accountmanage.ui
 
 RESOURCES += \
     res.qrc

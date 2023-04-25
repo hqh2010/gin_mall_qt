@@ -189,7 +189,86 @@ namespace utils
         loop.exec();
     }
 
-    int HttpRestClient::prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type)
+    int HttpRestClient::post_file(int action, QMap<QString, QString> mapData, const QStringList &img_list, const QString &header, QString &outMsg, QString &err_info)
+    {
+        // 参考官网源码 https://doc.qt.io/archives/qt-4.8/qhttpmultipart.html
+        QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+        QList<QFile *> file_list;
+        for (const auto &item : img_list)
+        {
+            QHttpPart imagePart;
+            QFileInfo filInfo(item);
+            QFile *file = new QFile(item);
+            if (!file->open(QIODevice::ReadOnly))
+            {
+                continue;
+            }
+            file_list.push_back(file);
+            // file 是后端定义的字段 filename后面接上传字段的名字
+            // 修改头像 Authorization 为用户登录时系统生成的token
+            // curl --location --request POST "http://localhost:3000/api/v1/avatar" \
+            //   --header "Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1b3MiLCJhdXRob3JpdHkiOjAsImV4cCI6MTY3ODc4NTUzOSwiaXNzIjoibWFsbCJ9.N5qnhSoN65otzZ5_tCjj64OuImHNgKJ_H4q-Uyzi8zI" \
+            //   --form "file=@/home/uos/Desktop/my_photo.png"
+            imagePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"file\"; filename=\"%1\"").arg(filInfo.fileName())));
+            imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+            const auto &data = file->readAll();
+            imagePart.setBody(data);
+            imagePart.setHeader(QNetworkRequest::ContentLengthHeader, QVariant(data.size())); // 注意要设定数据的大小，不然可能会少个字段
+            multiPart->append(imagePart);
+        }
+
+        // QUrl url("http://10.20.6.68:3000/api/v1/user/login");
+        int ret = 0;
+        QUrl url;
+
+        ret = prepare_action_cfg(mapData, multiPart, url, action);
+        if (ret != 0)
+        {
+            return ret;
+        }
+
+        QNetworkRequest request1(url);
+        // 传递token信息
+        if (!header.isEmpty())
+        {
+            request1.setRawHeader("Authorization", header.toLocal8Bit());
+        }
+        // post_test();
+        QNetworkAccessManager manager;
+        QNetworkReply *reply = manager.post(request1, multiPart);
+        multiPart->setParent(reply); // delete the multiPart with the reply
+        ret = -1;
+        QEventLoop loop;
+        QObject::connect(reply, &QNetworkReply::finished, &loop, [&]()
+                         {
+                             outMsg = QString::fromUtf8(reply->readAll());
+                             qInfo() << "ttttttttttttttttt:" << outMsg;
+                             if (reply->error() == QNetworkReply::NoError)
+                             {
+                                 ret = 0;
+                             }
+                             else
+                             {
+                                 outMsg.append(QString(" err info:%1").arg(reply->errorString()));
+                                 qCritical() << outMsg << reply->error();
+                                 reply->abort();
+                             }
+                             reply->deleteLater();
+                             loop.quit();
+                         });
+        // 3min 超时
+        QTimer::singleShot(3 * 60 * 1000, &loop, &QEventLoop::quit);
+        loop.exec();
+        for (auto pfile : file_list)
+        {
+            pfile->close();
+            delete pfile;
+        }
+        delete multiPart;
+        return ret;
+    }
+
+    int HttpRestClient::prepare_action_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type)
     {
         // QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
         for (auto item : mapData.keys())
@@ -247,7 +326,7 @@ namespace utils
         return ret;
     }
 
-    int HttpRestClient::post(int action, QMap<QString, QString> mapData, QString &outMsg, QString &err_info)
+    int HttpRestClient::post(int action, QMap<QString, QString> mapData, const QString &header, QString &outMsg, QString &err_info)
     {
         // user.user_name = "uos";
         // user.pwd = "1";
@@ -280,7 +359,7 @@ namespace utils
         int ret = 0;
         QUrl url;
 
-        ret = prepare_login_cfg(mapData, multiPart, url, action);
+        ret = prepare_action_cfg(mapData, multiPart, url, action);
         if (ret != 0)
         {
             return ret;
@@ -288,7 +367,10 @@ namespace utils
 
         QNetworkRequest request1(url);
         // 传递token信息
-        // request.setRawHeader("Authorization", headerData.toLocal8Bit());
+        if (!header.isEmpty())
+        {
+            request1.setRawHeader("Authorization", header.toLocal8Bit());
+        }
         // post_test();
         QNetworkAccessManager manager;
         QNetworkReply *reply = manager.post(request1, multiPart);

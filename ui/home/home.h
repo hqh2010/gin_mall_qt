@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QLabel>
+#include "ui/account_manage/accountmanage.h"
 
 namespace Ui
 {
@@ -45,6 +46,8 @@ private:
     int m_current_page = 1;
 
     int total_page = 2;
+
+    AccountManage *account_win = nullptr;
 };
 
 #endif // HOME_H

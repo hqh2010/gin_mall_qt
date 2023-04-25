@@ -23,6 +23,8 @@ const QString MALL_KEY_PWD = "password";
 
 const QString MALL_KEY_NICK_NAME = "nick_name";
 const QString MALL_KEY_KEY = "key";
+const QString MALL_KEY_FILE = "file";
+
 
 enum user_action_type
 {

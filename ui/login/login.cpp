@@ -181,7 +181,7 @@ void Login::on_login_btn_clicked()
     QMap<QString, QString> mapData;
     mapData.insert(MALL_KEY_USER_NAME, login_name);
     mapData.insert(MALL_KEY_PWD, pwd);
-    int ret = HTTPCLIENT->post(LOGIN, mapData, out, err_info);
+    int ret = HTTPCLIENT->post(LOGIN, mapData, "", out, err_info);
     ret |= utils::load_from_json(out, current_user, err_info);
     qInfo() << "load_from_json ret:" << ret << current_user.nickname << ", token:" << current_user.token;
     if (ret)

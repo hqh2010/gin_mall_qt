@@ -21,7 +21,8 @@ namespace utils
 
         int download_img(const QString &url, QByteArray &image);
         bool get(QNetworkRequest &request, QString &outMsg);
-        int post(int action, QMap<QString, QString> mapData, QString &outMsg, QString& err_info);
+        int post(int action, QMap<QString, QString> mapData, const QString &header, QString &outMsg, QString &err_info);
+        int post_file(int action, QMap<QString, QString> mapData, const QStringList &img_list, const QString &header, QString &outMsg, QString &err_info);
         bool put(QNetworkRequest &request, const QByteArray &data, QString &outMsg);
         bool put(QNetworkRequest &request, QHttpMultiPart *multiPart, QString &outMsg);
         // QNetworkReply *del(QNetworkRequest &request);
@@ -30,7 +31,7 @@ namespace utils
     private:
         bool doRequest(const QByteArray &verb, QNetworkRequest &request, QIODevice *data,
                        QHttpMultiPart *multiPart, const QByteArray &bytes, QString &outMsg);
-         int prepare_login_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type);              
+        int prepare_action_cfg(QMap<QString, QString> mapData, QHttpMultiPart *multiPart, QUrl &url, int type);
         QString userAgent;
     };
 

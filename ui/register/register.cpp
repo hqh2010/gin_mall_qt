@@ -115,7 +115,7 @@ void Register::on_reg_btn_clicked()
     mapData.insert(MALL_KEY_NICK_NAME, nick_name);
     mapData.insert(MALL_KEY_KEY, mail);
 
-    int ret = HTTPCLIENT->post(REGISTER, mapData, out, err_info);
+    int ret = HTTPCLIENT->post(REGISTER, mapData, "", out, err_info);
     // ret |= utils::load_from_json(out, current_user, err_info);
     // qInfo() << "load_from_json ret:" << ret << current_user.nickname << ", token:" << current_user.token;
     qInfo() << "load_from_json ret:" << ret << out;
