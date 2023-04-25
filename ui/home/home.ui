@@ -122,7 +122,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="first_tab">
      <attribute name="title">
@@ -138,6 +138,16 @@
      <attribute name="title">
       <string>关于我们</string>
      </attribute>
+     <widget class="AboutAppWidget" name="about_widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>30</y>
+        <width>491</width>
+        <height>391</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <zorder>groupBox</zorder>
@@ -157,6 +167,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AboutAppWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">aboutappwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

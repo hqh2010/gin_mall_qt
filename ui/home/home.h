@@ -31,6 +31,8 @@ private slots:
 
     void on_next_btn_clicked();
 
+    void on_account_2_home();
+
 private:
     void init_ui();
     void init_product_info(QListWidget *listWidget);

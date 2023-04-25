@@ -195,6 +195,13 @@ bool AccountManage::eventFilter(QObject *obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
+void AccountManage::closeEvent(QCloseEvent *event)
+{
+    // 忽略要关闭这个窗口的事件，当前窗口就不会被关闭
+    event->ignore();
+    emit accountToHomeWin();
+}
+
 AccountManage::~AccountManage()
 {
     delete ui;

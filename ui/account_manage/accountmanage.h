@@ -20,9 +20,13 @@ public:
     explicit AccountManage(QWidget *parent = nullptr);
     ~AccountManage();
 
+    void closeEvent(QCloseEvent *event);
     bool eventFilter(QObject *obj, QEvent *event) override;
 private slots:
     void onImgButtonClicked();
+
+signals:
+    void accountToHomeWin();
 
 private:
     Ui::AccountManage *ui;

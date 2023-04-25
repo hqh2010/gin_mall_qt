@@ -259,6 +259,18 @@ void Home::init_ui()
     connect(pre_btn, SIGNAL(clicked()), this, SLOT(on_pre_btn_clicked()));
     connect(next_btn, SIGNAL(clicked()), this, SLOT(on_next_btn_clicked()));
     // connect(ui->user_info_comboBox, SIGNAL(currentTextChanged(const QString &text)), this, SLOT(on_comboBox_currentIndexChanged(const QString &arg)));
+
+    // QObject::connect(account_win, SIGNAL(accountToHomeWin()), this, SLOT(on_account_2_home()));
+}
+
+void Home::on_account_2_home()
+{
+    qInfo() << "on_account_2_home";
+    // 窗口跳转 https://blog.csdn.net/zxy131072/article/details/95475136
+    // QDesktopWidget *desktop = QApplication::desktop();
+    // reg_win.move((desktop->width() - reg_win.width()) / 2, (desktop->height() - reg_win.height()) / 2);
+    account_win->hide();
+    this->show();
 }
 
 void Home::on_pre_btn_clicked()
@@ -374,6 +386,7 @@ void Home::on_user_info_comboBox_currentTextChanged(const QString &arg1)
         if (!account_win)
         {
             account_win = new AccountManage;
+            QObject::connect(account_win, SIGNAL(accountToHomeWin()), this, SLOT(on_account_2_home()));
         }
         account_win->show();
         this->hide();

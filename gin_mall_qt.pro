@@ -29,7 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-INCLUDEPATH += $$PWD/ui/verification $$PWD/ui/carousel_img
+INCLUDEPATH += $$PWD/ui/verification $$PWD/ui/carousel_img $$PWD/ui/about
 
 TRANSLATIONS = translations/i18n_zh_CN.ts translations/i18n_en_US.ts
 
@@ -48,7 +48,8 @@ SOURCES += \
     ui/carousel_img/carouselimagewidget.cpp \
     ui/test/test.cpp \
     ui/home/custom_list_item/custilistitem.cpp \
-    ui/account_manage/accountmanage.cpp
+    ui/account_manage/accountmanage.cpp \
+    ui/about/aboutappwidget.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -64,7 +65,8 @@ HEADERS += \
     ui/carousel_img/carouselimagewidget.h \
     ui/test/test.h \
     ui/home/custom_list_item/custilistitem.h \
-    ui/account_manage/accountmanage.h
+    ui/account_manage/accountmanage.h \
+    ui/about/aboutappwidget.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
@@ -73,7 +75,8 @@ FORMS += \
     ui/home/home.ui \
     ui/carousel_img/carouselimagewidget.ui \
     ui/test/test.ui \
-    ui/account_manage/accountmanage.ui
+    ui/account_manage/accountmanage.ui \
+    ui/about/aboutappwidget.ui
 
 RESOURCES += \
     res.qrc
