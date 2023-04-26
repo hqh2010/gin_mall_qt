@@ -49,6 +49,8 @@ void Home::init_product_info(QListWidget *listWidget)
 
             CustIListItem *widget = new CustIListItem(widget2);
             widget->set_item(4 * i + j + 1, tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()), QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            // 产品列表item点击信息
+            QObject::connect(widget, SIGNAL(clickeditem(int)), this, SLOT(on_home_2_product(int)));
             // widget->show();
             hLayout->addStretch();
             hLayout->addWidget(widget);
@@ -121,6 +123,7 @@ void Home::set_listwidget(const int current_page)
             }
             CustIListItem *widget = new CustIListItem(widget2);
             widget->set_item(4 * i + j + 1, tr(QString("cup%1").arg(4 * i + j + 1).toLocal8Bit()), QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(4 * i + j + 1));
+            QObject::connect(widget, SIGNAL(clickeditem(int)), this, SLOT(on_home_2_product(int)));
             // widget->show();
             hLayout->addStretch(1);
             hLayout->addWidget(widget);
@@ -148,6 +151,26 @@ void Home::set_listwidget(const int current_page)
         product_listWidget->addItem(item);
         product_listWidget->setItemWidget(item, widget2);
     }
+}
+
+void Home::on_home_2_product(int index)
+{
+    if (!product_detail_win)
+    {
+        product_detail_win = new ProductDetail;
+        QObject::connect(product_detail_win, SIGNAL(productToHomeWin()), this, SLOT(on_product_2_home()));
+    }
+    product_detail_win->idx = index;
+    this->hide();
+    product_detail_win->reload(index);
+    product_detail_win->show();
+    qInfo() << "on_home_2_product clicked " << index;
+}
+
+void Home::on_product_2_home()
+{
+    this->show();
+    product_detail_win->hide();
 }
 
 void Home::init_ui()
@@ -356,14 +379,13 @@ void Home::showEvent(QShowEvent *event)
                 file.write(img_bytes);
                 file.close();
             }
+            pixmap.loadFromData(img_bytes);
         }
         else
         {
             // 加载默认图片
             pixmap.load("home/xxxxx/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/avatar.JPG");
         }
-
-        pixmap.loadFromData(img_bytes);
         // QPixmap pixmap("http://10.20.6.68:3000/static/imgs/avatar/avatar.JPG");
         pixmap = pixmap.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         ui->user_img_label->setPixmap(pixmap);

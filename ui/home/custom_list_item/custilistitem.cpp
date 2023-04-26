@@ -78,7 +78,8 @@ bool CustIListItem::eventFilter(QObject *obj, QEvent *event)
         if (mouseEvent->button() == Qt::LeftButton)
         {
             qInfo() << "click the item:" << item_id;
-            return true;
+            emit clickeditem(item_id);
+			return true;
         }
         break;
     }

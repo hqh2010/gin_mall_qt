@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QLabel>
+
 #include "ui/account_manage/accountmanage.h"
+#include "ui/product_detail/productdetail.h"
 
 namespace Ui
 {
@@ -33,6 +35,10 @@ private slots:
 
     void on_account_2_home();
 
+    void on_home_2_product(int index);
+
+    void on_product_2_home();
+
 private:
     void init_ui();
     void init_product_info(QListWidget *listWidget);
@@ -50,6 +56,7 @@ private:
     int total_page = 2;
 
     AccountManage *account_win = nullptr;
+    ProductDetail *product_detail_win = nullptr;
 };
 
 #endif // HOME_H

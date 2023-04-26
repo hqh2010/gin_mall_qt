@@ -41,6 +41,10 @@ make -j2
 
 ![](./test_result/home.png)
 
+商品详情
+
+![](./test_result/product.png)
+
 关于
 
 ![](./test_result/about.png)

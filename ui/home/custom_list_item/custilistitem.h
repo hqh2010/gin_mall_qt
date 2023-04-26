@@ -25,6 +25,8 @@ public:
 private:
     void init_ui();
 
+signals:
+    void clickeditem(int idx);
 private:
     // Ui::CustIListItem *ui;
     QLabel *icon_label;
