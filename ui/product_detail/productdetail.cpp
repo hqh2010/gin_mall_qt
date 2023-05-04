@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QCloseEvent>
+#include <QDebug>
 
 ProductDetail::ProductDetail(QWidget *parent) : QMainWindow(parent),
                                                 ui(new Ui::ProductDetail)
@@ -39,6 +40,8 @@ ProductDetail::ProductDetail(QWidget *parent) : QMainWindow(parent),
     buy_btn->setText(tr("立即购买"));
     QPushButton *cart_btn = new QPushButton;
     cart_btn->setText(tr("加入购物车"));
+    connect(cart_btn, SIGNAL(clicked()), this, SLOT(on_cart_btn_clicked()));
+
     btnlayout->addWidget(cart_btn);
     btnlayout->addWidget(buy_btn);
     QWidget *btn_widget = new QWidget(right_widget);
@@ -67,6 +70,12 @@ void ProductDetail::reload(int idx)
     pixmap.load(QString("/home/uthuqinghong/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/cup_res/cup%1.jpg").arg(idx));
     pixmap = pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     img->setPixmap(pixmap);
+}
+
+void ProductDetail::on_cart_btn_clicked()
+{
+    qInfo() << "on_cart_btn_clicked";
+    emit addProduct(idx);
 }
 
 void ProductDetail::closeEvent(QCloseEvent *event)

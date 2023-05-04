@@ -23,6 +23,10 @@ public:
 signals:
     void productToHomeWin();
 
+    void addProduct(int idx);
+private slots:
+    void on_cart_btn_clicked();
+
 public:
     // 标识产品编号
     int idx;

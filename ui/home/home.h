@@ -7,6 +7,7 @@
 
 #include "ui/account_manage/accountmanage.h"
 #include "ui/product_detail/productdetail.h"
+#include "ui/cart/cartwin.h"
 
 namespace Ui
 {
@@ -22,6 +23,8 @@ public:
     ~Home();
 
     void showEvent(QShowEvent *event) override;
+
+    bool eventFilter(QObject *obj, QEvent *event);
 private slots:
     void on_search_btn_clicked();
 
@@ -38,6 +41,12 @@ private slots:
     void on_home_2_product(int index);
 
     void on_product_2_home();
+
+    void on_cart_2_home();
+
+    void on_cart_label_clicked();
+
+    void on_add_product_2_home(int idx);
 
 private:
     void init_ui();
@@ -57,6 +66,8 @@ private:
 
     AccountManage *account_win = nullptr;
     ProductDetail *product_detail_win = nullptr;
+
+    CartWin *cart_win = nullptr;
 };
 
 #endif // HOME_H

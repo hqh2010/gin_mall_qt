@@ -50,7 +50,9 @@ SOURCES += \
     ui/home/custom_list_item/custilistitem.cpp \
     ui/account_manage/accountmanage.cpp \
     ui/about/aboutappwidget.cpp \
-    ui/product_detail/productdetail.cpp
+    ui/product_detail/productdetail.cpp \
+    ui/cart/cartwin.cpp \
+    ui/cart/checkboxheaderview.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -68,7 +70,9 @@ HEADERS += \
     ui/home/custom_list_item/custilistitem.h \
     ui/account_manage/accountmanage.h \
     ui/about/aboutappwidget.h \
-    ui/product_detail/productdetail.h
+    ui/product_detail/productdetail.h \
+    ui/cart/cartwin.h \
+    ui/cart/checkboxheaderview.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
@@ -79,7 +83,8 @@ FORMS += \
     ui/test/test.ui \
     ui/account_manage/accountmanage.ui \
     ui/about/aboutappwidget.ui \
-    ui/product_detail/productdetail.ui
+    ui/product_detail/productdetail.ui \
+    ui/cart/cartwin.ui
 
 RESOURCES += \
     res.qrc

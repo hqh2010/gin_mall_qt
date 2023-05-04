@@ -7,6 +7,7 @@
 #include "utils/http/http_client.h"
 #include <QHBoxLayout>
 #include <QScrollArea>
+#include <QMouseEvent>
 
 #include "carouselimagewidget.h"
 #include "custom_list_item/custilistitem.h"
@@ -159,12 +160,20 @@ void Home::on_home_2_product(int index)
     {
         product_detail_win = new ProductDetail;
         QObject::connect(product_detail_win, SIGNAL(productToHomeWin()), this, SLOT(on_product_2_home()));
+        QObject::connect(product_detail_win, SIGNAL(addProduct(int)), this, SLOT(on_add_product_2_home(int)));
     }
     product_detail_win->idx = index;
     this->hide();
     product_detail_win->reload(index);
     product_detail_win->show();
     qInfo() << "on_home_2_product clicked " << index;
+}
+
+void Home::on_add_product_2_home(int idx)
+{
+    this->show();
+    product_detail_win->hide();
+    cart_win->add_to_cart(idx);
 }
 
 void Home::on_product_2_home()
@@ -182,6 +191,10 @@ void Home::init_ui()
     ui->order_label->setText(tr("我的订单"));
     // to do 购物车显示图片和数量
     ui->cart_label->setText(tr("购物车"));
+    // 开启悬停事件
+    ui->cart_label->setAttribute(Qt::WA_Hover, true);
+    // 安装事件过滤器
+    ui->cart_label->installEventFilter(this);
 
     // 初始化首页轮播图
     ui->tabWidget->setCurrentIndex(0);
@@ -284,6 +297,13 @@ void Home::init_ui()
     // connect(ui->user_info_comboBox, SIGNAL(currentTextChanged(const QString &text)), this, SLOT(on_comboBox_currentIndexChanged(const QString &arg)));
 
     // QObject::connect(account_win, SIGNAL(accountToHomeWin()), this, SLOT(on_account_2_home()));
+
+    if (!cart_win)
+    {
+        cart_win = new CartWin;
+        QObject::connect(cart_win, SIGNAL(cartToHomeWin()), this, SLOT(on_cart_2_home()));
+        cart_win->hide();
+    }
 }
 
 void Home::on_account_2_home()
@@ -339,6 +359,10 @@ void Home::on_tab_change(int index)
 {
     qInfo() << "on_tab_change index:" << index;
     // ui->tabWidget->setCurrentIndex(index);
+    CarouselImageWidget *carousel_img = ui->first_tab->findChild<CarouselImageWidget *>("carousel_img_widget");
+    qInfo() << "tttttttttttttttttttt first tab height:" << ui->first_tab->height() << ", first tab width:" << ui->first_tab->width();
+    qInfo() << "tttttttttttttttttttt tabWidget height:" << ui->tabWidget->height() << ", tabWidget width:" << ui->tabWidget->width();
+
     // 获取发射信号的对象
     // QPushButton* btn = qobject_cast<QPushButton*>(sender());
 }
@@ -346,6 +370,13 @@ void Home::on_tab_change(int index)
 void Home::on_search_btn_clicked()
 {
     qInfo() << "tttttttttttttttttttt on_search_btn_clicked";
+    qInfo() << "groupbox height:" << ui->groupBox->height();
+    qInfo() << "win height:" << this->height();
+    qInfo() << "win height:" << this->height();
+    qInfo() << "table widget height:" << ui->tabWidget->height();
+    qInfo() << "first_tab height:" << ui->first_tab->height();
+    qInfo() << "menubar height:" << ui->menubar->height();
+    qInfo() << "statusbar height:" << ui->statusbar->height();
 }
 
 void Home::showEvent(QShowEvent *event)
@@ -413,4 +444,67 @@ void Home::on_user_info_comboBox_currentTextChanged(const QString &arg1)
         account_win->show();
         this->hide();
     }
+}
+void Home::on_cart_2_home()
+{
+    cart_win->hide();
+    this->show();
+}
+
+void Home::on_cart_label_clicked()
+{
+    this->hide();
+    // if (!cart_win)
+    // {
+    //     cart_win = new CartWin;
+    //     QObject::connect(cart_win, SIGNAL(cartToHomeWin()), this, SLOT(on_cart_2_home()));
+    // }
+    cart_win->show();
+    this->hide();
+}
+
+bool Home::eventFilter(QObject *obj, QEvent *event)
+{
+    switch (event->type())
+    {
+    case QEvent::HoverEnter:
+        if (obj == ui->cart_label)
+        {
+            QPalette pa;
+            pa.setColor(QPalette::WindowText, Qt::blue);
+            QLabel *label = (QLabel *)obj;
+            label->setPalette(pa);
+            // 设置鼠标样式
+            QCursor waitCursor = Qt::PointingHandCursor;
+            QApplication::setOverrideCursor(waitCursor);
+        }
+        break;
+    case QEvent::HoverLeave:
+        if (obj == ui->cart_label)
+        {
+            QPalette pa;
+            pa.setColor(QPalette::WindowText, Qt::black);
+            QLabel *label = (QLabel *)obj;
+            label->setPalette(pa);
+            QApplication::restoreOverrideCursor();
+        }
+        break;
+    // https://blog.csdn.net/Vichael_Chan/article/details/100143032
+    case QEvent::MouseButtonPress:
+    {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::LeftButton)
+        {
+            if (obj == ui->cart_label)
+            {
+                on_cart_label_clicked();
+            }
+            return true;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return QWidget::eventFilter(obj, event);
 }
