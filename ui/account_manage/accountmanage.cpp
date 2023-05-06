@@ -54,7 +54,7 @@ AccountManage::AccountManage(QWidget *parent) : QMainWindow(parent),
         else
         {
             // 加载默认图片
-            pixmap.load("home/xxxxx/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/avatar.JPG");
+            pixmap.load("/home/xxxxx/Desktop/gin-mall-qt/gin-mall-qt-client-1.0.0/avatar.JPG");
         }
         // QPixmap pixmap("http://10.20.6.68:3000/static/imgs/avatar/avatar.JPG");
         pixmap = pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);

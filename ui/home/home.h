@@ -8,7 +8,7 @@
 #include "ui/account_manage/accountmanage.h"
 #include "ui/product_detail/productdetail.h"
 #include "ui/cart/cartwin.h"
-
+#include "ui/personal_detail/personaldetailwin.h"
 namespace Ui
 {
     class Home;
@@ -46,6 +46,10 @@ private slots:
 
     void on_cart_label_clicked();
 
+    void on_favorite_label_clicked();
+
+    void on_personal_2_home();
+
     void on_add_product_2_home(int idx);
 
 private:
@@ -68,6 +72,7 @@ private:
     ProductDetail *product_detail_win = nullptr;
 
     CartWin *cart_win = nullptr;
+    PersonalDetailWin *personal_win = nullptr;
 };
 
 #endif // HOME_H

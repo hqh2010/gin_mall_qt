@@ -187,7 +187,7 @@ void Home::init_ui()
     ui->search_btn->setText(tr("搜索"));
     ui->search_edit->setPlaceholderText(tr("请输入搜索内容"));
 
-    ui->favorite_label->setText(tr("我的收藏"));
+    ui->favorite_label->setText(tr("个人中心"));
     ui->order_label->setText(tr("我的订单"));
     // to do 购物车显示图片和数量
     ui->cart_label->setText(tr("购物车"));
@@ -195,6 +195,11 @@ void Home::init_ui()
     ui->cart_label->setAttribute(Qt::WA_Hover, true);
     // 安装事件过滤器
     ui->cart_label->installEventFilter(this);
+
+    // 开启悬停事件
+    ui->favorite_label->setAttribute(Qt::WA_Hover, true);
+    // 安装事件过滤器
+    ui->favorite_label->installEventFilter(this);
 
     // 初始化首页轮播图
     ui->tabWidget->setCurrentIndex(0);
@@ -460,7 +465,24 @@ void Home::on_cart_label_clicked()
     //     QObject::connect(cart_win, SIGNAL(cartToHomeWin()), this, SLOT(on_cart_2_home()));
     // }
     cart_win->show();
+}
+
+void Home::on_personal_2_home()
+{
+    personal_win->hide();
+    this->show();
+}
+
+void Home::on_favorite_label_clicked()
+{
     this->hide();
+    if (!personal_win)
+    {
+        personal_win = new PersonalDetailWin;
+        QObject::connect(personal_win, SIGNAL(personalToHomeWin()), this, SLOT(on_personal_2_home()));
+    }
+
+    personal_win->show();
 }
 
 bool Home::eventFilter(QObject *obj, QEvent *event)
@@ -468,7 +490,7 @@ bool Home::eventFilter(QObject *obj, QEvent *event)
     switch (event->type())
     {
     case QEvent::HoverEnter:
-        if (obj == ui->cart_label)
+        if (obj == ui->cart_label || ui->favorite_label)
         {
             QPalette pa;
             pa.setColor(QPalette::WindowText, Qt::blue);
@@ -480,7 +502,7 @@ bool Home::eventFilter(QObject *obj, QEvent *event)
         }
         break;
     case QEvent::HoverLeave:
-        if (obj == ui->cart_label)
+        if (obj == ui->cart_label || ui->favorite_label)
         {
             QPalette pa;
             pa.setColor(QPalette::WindowText, Qt::black);
@@ -498,6 +520,10 @@ bool Home::eventFilter(QObject *obj, QEvent *event)
             if (obj == ui->cart_label)
             {
                 on_cart_label_clicked();
+            }
+            if (obj == ui->favorite_label)
+            {
+                on_favorite_label_clicked();
             }
             return true;
         }

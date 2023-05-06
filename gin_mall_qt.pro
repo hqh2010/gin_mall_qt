@@ -52,7 +52,8 @@ SOURCES += \
     ui/about/aboutappwidget.cpp \
     ui/product_detail/productdetail.cpp \
     ui/cart/cartwin.cpp \
-    ui/cart/checkboxheaderview.cpp
+    ui/cart/checkboxheaderview.cpp \
+    ui/personal_detail/personaldetailwin.cpp
 HEADERS += \
     ui/login/login.h \
     ui/register/register.h \
@@ -72,7 +73,8 @@ HEADERS += \
     ui/about/aboutappwidget.h \
     ui/product_detail/productdetail.h \
     ui/cart/cartwin.h \
-    ui/cart/checkboxheaderview.h
+    ui/cart/checkboxheaderview.h \
+    ui/personal_detail/personaldetailwin.h
 FORMS += \
     ui/login/login.ui \
     ui/register/register.ui \
@@ -84,7 +86,8 @@ FORMS += \
     ui/account_manage/accountmanage.ui \
     ui/about/aboutappwidget.ui \
     ui/product_detail/productdetail.ui \
-    ui/cart/cartwin.ui
+    ui/cart/cartwin.ui \
+    ui/personal_detail/personaldetailwin.ui
 
 RESOURCES += \
     res.qrc
