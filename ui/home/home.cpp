@@ -64,7 +64,6 @@ void Home::init_product_info(QListWidget *listWidget)
         widget2->setLayout(hLayout);
         widget2->show();
         QListWidgetItem *item = new QListWidgetItem();
-        // 设置item的大小，大小应该比每个item
         item->setSizeHint(QSize(this->width(), 150));
         // 取消选中，否则点击时会选中整行
         item->setFlags(item->flags() & ~Qt::ItemIsSelectable);

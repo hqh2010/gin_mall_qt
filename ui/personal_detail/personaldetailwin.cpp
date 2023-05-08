@@ -33,8 +33,14 @@ void PersonalDetailWin::init_ui()
     QLabel *my_label = new QLabel;
     my_label->setText(tr("账户信息"));
     box2layout->addWidget(my_label);
-    QLabel *addr_label = new QLabel;
-    addr_label->setText(tr("收货地址"));
+    addr_label = new QLabel;
+    addr_label->setText(tr("收货地址管理"));
+
+    // 开启悬停事件
+    addr_label->setAttribute(Qt::WA_Hover, true);
+    // 安装事件过滤器
+    addr_label->installEventFilter(this);
+
     box2layout->addWidget(addr_label);
     box2layout->setAlignment(this, Qt::AlignCenter);
     box2->setLayout(box2layout);
@@ -237,11 +243,66 @@ PersonalDetailWin::PersonalDetailWin(QWidget *parent) : QMainWindow(parent),
     init_ui();
 }
 
+void PersonalDetailWin::on_addr_label_clicked()
+{
+    this->hide();
+    if (!addr_win)
+    {
+        addr_win = new AddrManagerWin;
+    }
+    addr_win->show();
+}
+
 void PersonalDetailWin::closeEvent(QCloseEvent *event)
 {
     // 忽略要关闭这个窗口的事件，当前窗口就不会被关闭
     event->ignore();
     emit personalToHomeWin();
+}
+
+bool PersonalDetailWin::eventFilter(QObject *obj, QEvent *event)
+{
+    switch (event->type())
+    {
+    case QEvent::HoverEnter:
+        if (obj == addr_label)
+        {
+            QPalette pa;
+            pa.setColor(QPalette::WindowText, Qt::blue);
+            QLabel *label = (QLabel *)obj;
+            label->setPalette(pa);
+            // 设置鼠标样式
+            QCursor waitCursor = Qt::PointingHandCursor;
+            QApplication::setOverrideCursor(waitCursor);
+        }
+        break;
+    case QEvent::HoverLeave:
+        if (obj == addr_label)
+        {
+            QPalette pa;
+            pa.setColor(QPalette::WindowText, Qt::black);
+            QLabel *label = (QLabel *)obj;
+            label->setPalette(pa);
+            QApplication::restoreOverrideCursor();
+        }
+        break;
+    case QEvent::MouseButtonPress:
+    {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::LeftButton)
+        {
+            if (obj == addr_label)
+            {
+                on_addr_label_clicked();
+            }
+            return true;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return QWidget::eventFilter(obj, event);
 }
 
 PersonalDetailWin::~PersonalDetailWin()

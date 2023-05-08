@@ -2,7 +2,10 @@
 #define PERSONALDETAILWIN_H
 
 #include <QMainWindow>
-
+#include <QLabel>
+#include <QDebug>
+#include <QCloseEvent>
+#include "ui/addr_manager/addrmanagerwin.h"
 namespace Ui
 {
     class PersonalDetailWin;
@@ -17,13 +20,18 @@ public:
     ~PersonalDetailWin();
 
     void closeEvent(QCloseEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
 signals:
     void personalToHomeWin();
+
 private:
     void init_ui();
+    void on_addr_label_clicked();
 
 private:
     Ui::PersonalDetailWin *ui;
+    QLabel *addr_label = nullptr;
+    AddrManagerWin* addr_win = nullptr;
 };
 
 #endif // PERSONALDETAILWIN_H
